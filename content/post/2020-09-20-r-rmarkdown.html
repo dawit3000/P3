@@ -1,7 +1,7 @@
 ---
 title: "Periodic and Average Periodic Returns of Financial Portfolios using R"
-author: "Frida Gomam"
-date: 2015-07-23
+author: "Dawit Aberra"
+date: 2020-09-20
 categories: ["R"]
 tags: ["R Markdown", "plot", "regression"]
 ---
@@ -12,11 +12,6 @@ tags: ["R Markdown", "plot", "regression"]
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>title: “Periodic and Average Periodic Returns of Financial Portfolios using R”
-author: “Dawit Aberra”
-date: 2020-09-21
-categories: [“R”]
-tags: [“R Markdown”, “plot”, “regression”]</p>
 <p>Institutional and Hedge Fund managers return from summer vacation and adjust their financial portfolios at the end of each summer, causing a selloff pressure in the market. September is considered a bad month for the Bulls [1]</p>
 <p>“Given that September tends to be a bad month for the market, I’m urging you to be prepared …” Jim Cramer on CNBC, September 11, 2020.</p>
 <p>For this and other reasons, such as election hypes, pandemic, etc., people with trading, investing or retirement portfolios may want to know how their financial portfolios (or instruments such as stocks or ETFs in their portfolios) performed over some years, months, weeks or days. They may also want to know the average monthly, yearly, weekly or daily returns, starting from some fixed time of start in the past to the present or recent time.</p>
@@ -28,8 +23,8 @@ In this short note, we will consider the historical data of the Standard and Poo
 ##install.packages(c(&quot;tidyquant&quot;,&quot;ggplot2&quot;,&quot;RColorBrewer&quot;,&quot;kableExtra&quot;))
 </code></pre>
 </div>
-<div id="getting-and-cleaning-data" class="section level2">
-<h2>Getting and Cleaning Data</h2>
+<div id="getting-and-preparing-data" class="section level2">
+<h2>Getting and Preparing Data</h2>
 <p>We will get the data for the S&amp;P 500 Index, symbol = ^GSPC, from Yahoo! Finance. We will then prepare the data for visualization and/or Summarization of results as needed.</p>
 <pre class="r"><code>##Get data 
 library(tidyquant)
@@ -800,7 +795,7 @@ Return
 </tr>
 </tbody>
 </table>
-<p>Readers who are curious to know what happened during those historical days may consult the literature. For example, the infamous day <code>1987-10-19</code> happens to be what is known in market history as the Black Monday; the crashes in October of 1929 signaled the beginning of the Great Depression, see e.g. [4].</p>
+<p>Readers who are curious about those historical days may consult the literature. For example, the infamous day <code>1987-10-19</code> happens to be what is known in market history as the Black Monday; the crashes in October of 1929 signaled the beginning of the Great Depression, see e.g. [4].</p>
 <p>Readers interested in similar or more interesting results that may be check using (R-) codes may consult Hirsch’s book [1].</p>
 </div>
 <div id="references" class="section level2">

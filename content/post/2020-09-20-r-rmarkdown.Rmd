@@ -1,7 +1,7 @@
 ---
 title: "Periodic and Average Periodic Returns of Financial Portfolios using R"
-author: "Frida Gomam"
-date: 2015-07-23
+author: "Dawit Aberra"
+date: 2020-09-20
 categories: ["R"]
 tags: ["R Markdown", "plot", "regression"]
 ---
@@ -11,12 +11,6 @@ knitr::opts_chunk$set(collapse = TRUE)
 ```
 
 ## Introduction
-
-title: "Periodic and Average Periodic Returns of Financial Portfolios using R"
-author: "Dawit Aberra"
-date: 2020-09-21
-categories: ["R"]
-tags: ["R Markdown", "plot", "regression"]
 
 Institutional and Hedge Fund managers return from summer vacation and adjust their financial portfolios at the end of each summer, causing a selloff pressure in the market. September is considered a bad month for the Bulls [1] 
 
@@ -38,7 +32,7 @@ We start by installing the R packages that  will be needed to produce libraries 
 
 ```
 
-## Getting and Cleaning Data
+## Getting and Preparing Data
 
 We will get the data for the S&P 500 Index, symbol = ^GSPC,  from Yahoo! Finance. We will then prepare the data for visualization and/or Summarization  of results as needed. 
 
@@ -144,7 +138,7 @@ head(tb2, n=15) %>% kbl(caption = "Worst historical days of market") %>% kable_c
 
 ```
  
-Readers who are curious to know what happened during those historical days may consult the  literature. For example, the infamous day `1987-10-19` happens to be what is known in market history as the Black Monday; the crashes in October of 1929 signaled the beginning of the Great Depression, see e.g.  [4]. 
+Readers who are curious about those historical days may consult the  literature. For example, the infamous day `1987-10-19` happens to be what is known in market history as the Black Monday; the crashes in October of 1929 signaled the beginning of the Great Depression, see e.g.  [4]. 
 
 
 Readers interested in similar or more interesting results that may be check using (R-) codes may consult Hirsch's book [1].
