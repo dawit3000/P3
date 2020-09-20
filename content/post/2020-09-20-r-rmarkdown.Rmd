@@ -32,7 +32,7 @@ We start by installing the R packages that  will be needed to produce libraries 
 
 ```
 
-## Getting and Cleaning Data
+## Getting and Preparing Data
 
 We will get the data for the S&P 500 Index, symbol = ^GSPC,  from Yahoo! Finance. We will then prepare the data for visualization and/or Summarization  of results as needed. 
 
