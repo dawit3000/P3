@@ -1,5 +1,5 @@
 ---
-title: "Periodic and Average Periodic Returns of Financial Portfolios using R"
+title: "Anthony Hope Periodic and Average Periodic Returns of Financial Portfolios using R"
 author: "Dawit Aberra"
 date: 2020-09-20
 categories: ["R"]
