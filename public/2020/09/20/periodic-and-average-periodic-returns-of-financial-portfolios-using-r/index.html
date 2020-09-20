@@ -81,7 +81,7 @@
 <h2>Introduction</h2>
 <p>Institutional and Hedge Fund managers return from summer vacation and adjust their financial portfolios at the end of each summer, causing a selloff pressure in the market. September is considered a bad month for the Bulls [1]</p>
 <p>“Given that September tends to be a bad month for the market, I’m urging you to be prepared …” Jim Cramer on CNBC, September 11, 2020.</p>
-<p>For this and other reasons, such as election hypes, pandemic, etc., people with trading, investing or retirement portfolios may want to know how their financial portfolios (or instruments such as stocks or ETFs in their portfolios) performed over some years, months, weeks or days. They may also want to know the average monthly, yearly, weekly or daily returns, starting from some fixed time of start in the past to the present or recent time.</p>
+<p>For this and other reasons, such as election, pandemic, etc., people with trading, investing or retirement portfolios may want to know how their financial portfolios (or instruments such as stocks or ETFs in their portfolios) performed over some years, months, weeks or days. They may also want to know the average (mean) monthly, yearly, weekly or daily returns, starting from some fixed time of start in the past to the present or recent time.</p>
 <p>Almost all portfolio managers measure performance with reference to a benchmark [3].
 In this short note, we will consider the historical data of the Standard and Poor’s 500 Index (S&amp;P 500, symbol=^GSPC) from Yahoo! Finance, which is widely regarded as the best gauge of large-cap U.S. equities. Other well known benchmarks include DOW-30, NASDAQ-100, and the Russell 2000 Index for small-caps.</p>
 <p>We will then outline a simple way to visualize or summarize monthly returns as well as average monthly returns using R. Interested readers can modify the instrument, period and length of time to their preference.</p>
@@ -92,13 +92,12 @@ In this short note, we will consider the historical data of the Standard and Poo
 </div>
 <div id="getting-and-preparing-data" class="section level2">
 <h2>Getting and Preparing Data</h2>
-<p>We will get the data for the S&amp;P 500 Index, symbol = ^GSPC, from Yahoo! Finance. We will then prepare the data for visualization and/or Summarization of results as needed.</p>
+<p>We will get the data for the S&amp;P 500 Index, symbol = ^GSPC, from Yahoo! Finance. We will then prepare the data for visualization and/or summarization of results as needed.</p>
 <pre class="r"><code>##Get data 
 library(tidyquant)
 library(timetk)
 symbol &lt;- tq_get(&quot;^GSPC&quot;,from = &quot;1927-12-01&quot;, to = &quot;2020-12-31&quot;, get = &quot;stock.prices&quot;)
 symbolname&lt;-&quot;^GSPC&quot; #we need this for reproducible labels of our plot outputs.
-
 
 ##Create a tibble, tb, for ^GSPC Monthly Returns. 
 tb&lt;-tq_transmute(data=symbol, select = adjusted,mutate_fun = periodReturn, period = &quot;monthly&quot;,col_rename = &quot;Return&quot;)</code></pre>
@@ -184,7 +183,7 @@ tb&lt;-select(tb, 3,4,2)
 
 ## include mean return in the plots (in adition to monthly returns). 
 agg = aggregate(tb$Return,by = list(month=tb$Month),FUN = mean)
-agg$Year&lt;-&quot;Average Return \n since 1927&quot;
+agg$Year&lt;-&quot;Average Monthly Return \n since 1927&quot;
 colnames(agg) &lt;- c(&quot;Month&quot;, &quot;Return&quot;, &quot;Year&quot;)
 agg&lt;-select(agg, 3,1,2)
 tb&lt;-rbind(tb,agg)
@@ -277,7 +276,7 @@ May
 </tr>
 </tbody>
 </table>
-<p>The last 12 rows contain the average (mean) monthly returns from the start date of the data to the present year, preceded by the monthly returns of the most recent years. Since this note is written in September of 2020, the 2020 data is only for 9 months at this writing.</p>
+<p>The last 12 rows contain the average (mean) monthly returns from the start date of the data to the present year, preceded by the monthly returns of the most recent years. Since this note is written in September of 2020, the 2020 data was only for 9 months at this writing.</p>
 <pre class="r"><code>tail(tb,n=34) %&gt;%
   kbl(caption = &quot;Monthly Returns and Average Monthly Returns&quot;) %&gt;%
   kable_classic(full_width = F, html_font = &quot;Cambria&quot;)</code></pre>
@@ -543,7 +542,7 @@ Sep
 </tr>
 <tr>
 <td style="text-align:left;">
-Average Return
+Average Monthly Return
 since 1927
 </td>
 <td style="text-align:left;">
@@ -555,7 +554,7 @@ Jan
 </tr>
 <tr>
 <td style="text-align:left;">
-Average Return
+Average Monthly Return
 since 1927
 </td>
 <td style="text-align:left;">
@@ -567,7 +566,7 @@ Feb
 </tr>
 <tr>
 <td style="text-align:left;">
-Average Return
+Average Monthly Return
 since 1927
 </td>
 <td style="text-align:left;">
@@ -579,7 +578,7 @@ Mar
 </tr>
 <tr>
 <td style="text-align:left;">
-Average Return
+Average Monthly Return
 since 1927
 </td>
 <td style="text-align:left;">
@@ -591,7 +590,7 @@ Apr
 </tr>
 <tr>
 <td style="text-align:left;">
-Average Return
+Average Monthly Return
 since 1927
 </td>
 <td style="text-align:left;">
@@ -603,7 +602,7 @@ May
 </tr>
 <tr>
 <td style="text-align:left;">
-Average Return
+Average Monthly Return
 since 1927
 </td>
 <td style="text-align:left;">
@@ -615,7 +614,7 @@ Jun
 </tr>
 <tr>
 <td style="text-align:left;">
-Average Return
+Average Monthly Return
 since 1927
 </td>
 <td style="text-align:left;">
@@ -627,7 +626,7 @@ Jul
 </tr>
 <tr>
 <td style="text-align:left;">
-Average Return
+Average Monthly Return
 since 1927
 </td>
 <td style="text-align:left;">
@@ -639,7 +638,7 @@ Aug
 </tr>
 <tr>
 <td style="text-align:left;">
-Average Return
+Average Monthly Return
 since 1927
 </td>
 <td style="text-align:left;">
@@ -651,7 +650,7 @@ Sep
 </tr>
 <tr>
 <td style="text-align:left;">
-Average Return
+Average Monthly Return
 since 1927
 </td>
 <td style="text-align:left;">
@@ -663,7 +662,7 @@ Oct
 </tr>
 <tr>
 <td style="text-align:left;">
-Average Return
+Average Monthly Return
 since 1927
 </td>
 <td style="text-align:left;">
@@ -675,7 +674,7 @@ Nov
 </tr>
 <tr>
 <td style="text-align:left;">
-Average Return
+Average Monthly Return
 since 1927
 </td>
 <td style="text-align:left;">
@@ -691,11 +690,11 @@ Dec
 <div id="visualizing-the-tidy-data" class="section level2">
 <h2>Visualizing the tidy data</h2>
 <p>We can now visualize the data to our liking.
-A column plot (bar plot) of monthly returns during the most recent five years (four years and nine months since this note was written in September) with a plot of Average Monthly Return (since 1927) of each month at the bottom may be done as follows.</p>
+For example, a column plot (bar plot) of monthly returns during the most recent five years (four years and nine months since this note was written in September) with a plot of average monthly return (since 1927) of each month at the bottom may be done as follows.</p>
 <pre class="r"><code>## Plot using ggplot2
 library(ggplot2)
 library(scales)
-g&lt;-ggplot(data=tb[(length(tb$Return)-(4*12+9)+1):length(tb$Return),], aes(x=Month, y=Return)) 
+g&lt;-ggplot(data=tb[(length(tb$Return)-(6*12)+4):length(tb$Return),], aes(x=Month, y=Return)) 
 g&lt;-g+geom_col(aes(fill = Month), position = &quot;dodge&quot;)
 g&lt;-g+facet_grid(rows = vars(Year))
 g&lt;-g+labs(title=paste(&quot;Monthly % Returns of&quot;, symbolname),subtitle=&quot;With % return stamped on top/bottom of each bar&quot;)
@@ -703,24 +702,24 @@ g&lt;-g+geom_text(aes(label = paste(round(Return*100,1), &quot;%&quot;), vjust =
 g&lt;-g+scale_y_continuous(&quot;Returns in Percentage&quot;, labels = percent_format(),expand = expansion(mult = c(0.2, 0.2))) 
 g</code></pre>
 <p><img src="/post/2020-09-20-r-rmarkdown_files/figure-html/unnamed-chunk-6-1.png" width="864" /></p>
-<p>If we are interested in a separate plot for the Average (mean) Monthly Return of each month (from 1927 to the present day), we can select the last 12 rows of <code>tb</code> and use the same code. We also need to adjust the title and labels of the axes.</p>
+<p>If we are interested in a separate plot for the average monthly return of each month (from 1927 to the present day), we can select the last 12 rows of <code>tb</code> and use the same code. We also need to adjust the title and labels of the axes.</p>
 <pre class="r"><code>## Plot using ggplot2 
 library(ggplot2)
 library(scales)
 g&lt;-ggplot(data=tb[(length(tb$Return)-12+1):length(tb$Return),], aes(x=Month, y=Return)) 
 g&lt;-g+geom_col(aes(fill = Month), position = &quot;dodge&quot;)
 g&lt;-g+facet_grid(rows = vars(Year))
-g&lt;-g+labs(title=paste(&quot;Average Monthly Return of&quot;, symbolname),subtitle=&quot;With mean %age return since 1927 stamped on top/bottom of each bar&quot;)
+g&lt;-g+labs(title=paste(&quot;Average Monthly % Return of&quot;, symbolname),subtitle=&quot;With Monthly % Return (with data since 1927) stamped on top/bottom of each bar&quot;)
 g&lt;-g+geom_text(aes(label = paste(round(Return*100,1), &quot;%&quot;), vjust = ifelse(Return &gt;= 0, -0.1, 1.1)), size=3.5)  
 g&lt;-g+scale_y_continuous(&quot;Average (Mean) Monthly Return&quot;, labels = percent_format(),expand = expansion(mult = c(0.2, 0.2))) 
 g</code></pre>
 <p><img src="/post/2020-09-20-r-rmarkdown_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
-<div id="summarizing-other-important-tales" class="section level2">
-<h2>Summarizing other important tales</h2>
+<div id="summarizing-other-interesting-tales" class="section level2">
+<h2>Summarizing other interesting tales</h2>
 <p>There were several interesting market events in history. Interested readers may use codes and data to get summary of results in the format of their liking.
 For example, if we are interested in the list of the fifteen worst days of the S&amp;P 500 Index, we can run the following chunk.</p>
-<pre class="r"><code>symbol2 &lt;- tq_get(&quot;^GSPC&quot;,from = &quot;1928-01-01&quot;, to = &quot;2020-12-31&quot;, get = &quot;stock.prices&quot;)
+<pre class="r"><code>symbol2 &lt;- tq_get(&quot;^GSPC&quot;,from = &quot;1927-01-01&quot;, to = &quot;2020-12-31&quot;, get = &quot;stock.prices&quot;)
 tb2&lt;-tq_transmute(data=symbol2, select = adjusted,mutate_fun = periodReturn, period = &quot;daily&quot;,col_rename = &quot;Return&quot;)
 tb2&lt;-tb2[order(tb2$Return,decreasing = FALSE),]
 tb2$Return&lt;-paste(round(100*(tb2$Return),1),&quot;%&quot;)
@@ -862,7 +861,7 @@ Return
 </tr>
 </tbody>
 </table>
-<p>Readers who are curious about those historical days may consult the literature. For example, the infamous day <code>1987-10-19</code> happens to be what is known in market history as the Black Monday; the crashes in October of 1929 signaled the beginning of the Great Depression, see e.g. [4].</p>
+<p>Readers who are curious about those historical days may consult the literature. For example, the infamous day <code>1987-10-19</code> happens to be what is known in market history as the Black Monday. The crashes in October of 1929 signaled the beginning of the Great Depression. See, e.g., [4].</p>
 <p>Readers interested in similar or more interesting results that may be check using (R-) codes may consult Hirsch’s book [1].</p>
 </div>
 <div id="references" class="section level2">

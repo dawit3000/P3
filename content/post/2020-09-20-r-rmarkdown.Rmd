@@ -1,5 +1,5 @@
 ---
-title: "Anthony Hope Periodic and Average Periodic Returns of Financial Portfolios using R"
+title: "Periodic and Average Periodic Returns of Financial Portfolios using R"
 author: "Dawit Aberra"
 date: 2020-09-20
 categories: ["R"]
@@ -16,7 +16,7 @@ Institutional and Hedge Fund managers return from summer vacation and adjust the
 
 “Given that September tends to be a bad month for the market, I’m urging you to be prepared …” Jim Cramer on CNBC, September 11, 2020.
 
-For this and other reasons, such as election hypes, pandemic, etc., people with trading, investing or retirement portfolios may want to know how their financial portfolios (or instruments such as stocks or ETFs in their portfolios) performed over some years, months, weeks or days. They may also want to know the average monthly, yearly, weekly or daily returns, starting from some fixed time of start in the past to the present or recent time. 
+For this and other reasons, such as election, pandemic, etc., people with trading, investing or retirement portfolios may want to know how their financial portfolios (or instruments such as stocks or ETFs in their portfolios) performed over some years, months, weeks or days. They may also want to know the average (mean) monthly, yearly, weekly or daily returns, starting from some fixed time of start in the past to the present or recent time. 
 
 Almost all portfolio managers measure performance with reference to a benchmark [3]. 
 In this short note, we will consider the historical data of the Standard and Poor's 500 Index (S&P 500, symbol=^GSPC) from Yahoo! Finance, which is widely regarded as the best gauge of large-cap U.S. equities. Other well known benchmarks include DOW-30, NASDAQ-100, and the Russell 2000 Index for small-caps.
@@ -34,7 +34,7 @@ We start by installing the R packages that  will be needed to produce libraries 
 
 ## Getting and Preparing Data
 
-We will get the data for the S&P 500 Index, symbol = ^GSPC,  from Yahoo! Finance. We will then prepare the data for visualization and/or Summarization  of results as needed. 
+We will get the data for the S&P 500 Index, symbol = ^GSPC,  from Yahoo! Finance. We will then prepare the data for visualization and/or summarization  of results as needed. 
 
 ```{r echo=T, message=F, warning=F}
 ##Get data 
@@ -42,7 +42,6 @@ library(tidyquant)
 library(timetk)
 symbol <- tq_get("^GSPC",from = "1927-12-01", to = "2020-12-31", get = "stock.prices")
 symbolname<-"^GSPC" #we need this for reproducible labels of our plot outputs.
-
 
 ##Create a tibble, tb, for ^GSPC Monthly Returns. 
 tb<-tq_transmute(data=symbol, select = adjusted,mutate_fun = periodReturn, period = "monthly",col_rename = "Return")
@@ -73,7 +72,7 @@ tb<-select(tb, 3,4,2)
 
 ## include mean return in the plots (in adition to monthly returns). 
 agg = aggregate(tb$Return,by = list(month=tb$Month),FUN = mean)
-agg$Year<-"Average Return \n since 1927"
+agg$Year<-"Average Monthly Return \n since 1927"
 colnames(agg) <- c("Month", "Return", "Year")
 agg<-select(agg, 3,1,2)
 tb<-rbind(tb,agg)
@@ -82,7 +81,7 @@ head(tb)%>%
   kable_classic(full_width = F, html_font = "Cambria") %>% kable_styling()
 ```
 
-The last 12 rows contain the average (mean) monthly returns from the start date of the data to the present year, preceded by the monthly returns of the most recent years. Since this note is written in September of 2020, the 2020 data is only for 9 months at this writing.
+The last 12 rows contain the average (mean) monthly returns from the start date of the data to the present year, preceded by the monthly returns of the most recent years. Since this note is written in September of 2020, the 2020 data was only for 9 months at this writing.
 
 ```{r}
 tail(tb,n=34) %>%
@@ -93,14 +92,14 @@ tail(tb,n=34) %>%
 ## Visualizing the tidy data
 
 We can now visualize the data to our liking.
-A column plot (bar plot) of monthly returns during the most recent five years (four years and nine months since this note was written in September) with a plot of Average  Monthly Return (since 1927) of each month at the bottom may be done as follows.
+For example, a column plot (bar plot) of monthly returns during the most recent five years (four years and nine months since this note was written in September) with a plot of average  monthly return (since 1927) of each month at the bottom may be done as follows.
 
 
 ```{r fig.width=9, fig.height=11, echo=T, message=F, warning=F}
 ## Plot using ggplot2
 library(ggplot2)
 library(scales)
-g<-ggplot(data=tb[(length(tb$Return)-(4*12+9)+1):length(tb$Return),], aes(x=Month, y=Return)) 
+g<-ggplot(data=tb[(length(tb$Return)-(6*12)+4):length(tb$Return),], aes(x=Month, y=Return)) 
 g<-g+geom_col(aes(fill = Month), position = "dodge")
 g<-g+facet_grid(rows = vars(Year))
 g<-g+labs(title=paste("Monthly % Returns of", symbolname),subtitle="With % return stamped on top/bottom of each bar")
@@ -109,7 +108,7 @@ g<-g+scale_y_continuous("Returns in Percentage", labels = percent_format(),expan
 g
 ```
 
-If we are interested in  a separate plot for the Average (mean) Monthly Return of each month (from 1927 to the present day), we can select the last 12 rows of `tb` and use the same code. We also need to adjust the title and labels of the axes.
+If we are interested in  a separate plot for the average monthly return of each month (from 1927 to the present day), we can select the last 12 rows of `tb` and use the same code. We also need to adjust the title and labels of the axes.
 
 ```{r echo=T, message=F, warning=F}
 ## Plot using ggplot2 
@@ -118,19 +117,19 @@ library(scales)
 g<-ggplot(data=tb[(length(tb$Return)-12+1):length(tb$Return),], aes(x=Month, y=Return)) 
 g<-g+geom_col(aes(fill = Month), position = "dodge")
 g<-g+facet_grid(rows = vars(Year))
-g<-g+labs(title=paste("Average Monthly Return of", symbolname),subtitle="With mean %age return since 1927 stamped on top/bottom of each bar")
+g<-g+labs(title=paste("Average Monthly % Return of", symbolname),subtitle="With Monthly % Return (with data since 1927) stamped on top/bottom of each bar")
 g<-g+geom_text(aes(label = paste(round(Return*100,1), "%"), vjust = ifelse(Return >= 0, -0.1, 1.1)), size=3.5)  
 g<-g+scale_y_continuous("Average (Mean) Monthly Return", labels = percent_format(),expand = expansion(mult = c(0.2, 0.2))) 
 g
 ```
  
- ## Summarizing other important tales
+ ## Summarizing other interesting tales
 
 There were several interesting market events in history. Interested readers may use codes and data to get summary of results in the format of their liking.
 For example, if we are interested in the list of the fifteen  worst days of the S&P 500 Index, we can run the following chunk.
  
 ```{r}
-symbol2 <- tq_get("^GSPC",from = "1928-01-01", to = "2020-12-31", get = "stock.prices")
+symbol2 <- tq_get("^GSPC",from = "1927-01-01", to = "2020-12-31", get = "stock.prices")
 tb2<-tq_transmute(data=symbol2, select = adjusted,mutate_fun = periodReturn, period = "daily",col_rename = "Return")
 tb2<-tb2[order(tb2$Return,decreasing = FALSE),]
 tb2$Return<-paste(round(100*(tb2$Return),1),"%")
@@ -138,7 +137,7 @@ head(tb2, n=15) %>% kbl(caption = "Worst historical days of market") %>% kable_c
 
 ```
  
-Readers who are curious about those historical days may consult the  literature. For example, the infamous day `1987-10-19` happens to be what is known in market history as the Black Monday; the crashes in October of 1929 signaled the beginning of the Great Depression, see e.g.  [4]. 
+Readers who are curious about those historical days may consult the  literature. For example, the infamous day `1987-10-19` happens to be what is known in market history as the Black Monday. The crashes in October of 1929 signaled the beginning of the Great Depression. See, e.g.,  [4]. 
 
 
 Readers interested in similar or more interesting results that may be check using (R-) codes may consult Hirsch's book [1].
