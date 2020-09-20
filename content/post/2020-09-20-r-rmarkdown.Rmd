@@ -1,7 +1,7 @@
 ---
 title: "Periodic and Average Periodic Returns of Financial Portfolios using R"
-author: "Dawit Aberra"
-date: 2020-09-21
+author: "Frida Gomam"
+date: 2015-07-23
 categories: ["R"]
 tags: ["R Markdown", "plot", "regression"]
 ---
@@ -11,6 +11,12 @@ knitr::opts_chunk$set(collapse = TRUE)
 ```
 
 ## Introduction
+
+title: "Periodic and Average Periodic Returns of Financial Portfolios using R"
+author: "Dawit Aberra"
+date: 2020-09-21
+categories: ["R"]
+tags: ["R Markdown", "plot", "regression"]
 
 Institutional and Hedge Fund managers return from summer vacation and adjust their financial portfolios at the end of each summer, causing a selloff pressure in the market. September is considered a bad month for the Bulls [1] 
 
