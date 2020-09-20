@@ -19,14 +19,12 @@ For this and other reasons, such as election, pandemic, etc.</description>
     </item>
     
     <item>
-      <title>Hello R Markdown</title>
-      <link>/2015/07/23/hello-r-markdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      <title>RMarkdown &#43; Blogdown &#43; Hugo &#43; Github &#43; Netlify</title>
+      <link>/2020/07/19/rmarkdown-blogdown-hugo-github-netlify/</link>
+      <pubDate>Sun, 19 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2015/07/23/hello-r-markdown/</guid>
-      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+      <guid>/2020/07/19/rmarkdown-blogdown-hugo-github-netlify/</guid>
+      <description>The PlanIf you are interested in building your own website where you can sometimes blog and link your blogs with other famous blogging sites such as R-Bloggers and Python Bloggers, you should expect to be very familiar with Blogdown, Hugo Themes, Github and Netlify. If you, like me, are familiar with R/RStudio and a feature in RStudio called R Markdown, which is mostly used for type-setting your code loaded works with expected outputs in file extensions like .</description>
     </item>
     
   </channel>
