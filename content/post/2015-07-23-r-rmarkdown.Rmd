@@ -11,7 +11,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 ```
 
 # The Plan
-If you are interested in building your own website where you can sometimes blog and link your blogs with other famous blogging sites such as [R-Bloggers](https://www.r-bloggers.com/) and [Python Bloggers](https://python-bloggers.com/), you should expect to be very familiar with Blogdown, Hugo Themes, Github and Netlify. If you, like me,  are familiar with R/RStudio and a feature in RStudio called R Markdown, which is mostly used for type-setting your code loaded works with expected outputs in file extensions like .Rmd, .md, .html, .pdf and word, then you do not have to worry about the first step. What is next, and what are those names listed in the title?
+If you are interested in building your own website where you can sometimes blog and link your blogs with other famous blogging sites such as [R-Bloggers](https://www.r-bloggers.com/) and [Python Bloggers](https://python-bloggers.com/), you will be very familiar with Blogdown, Hugo Themes, Github and Netlify. If you, like me,  are familiar with R/RStudio and a feature in RStudio called R Markdown, which is mostly used for type-setting your code loaded works with expected outputs in file extensions like .Rmd, .md, .html, .pdf and word, then you do not have to worry about the first step. What is next, and what are those names listed in the title?
 
 # Create a Github Account
 If you did not yet, start by opening a [GitHub account](https://github.com/). You will then need to create your first repository and copy the link of the repository [More on this?](https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/creating-your-first-repository-using-github-desktop).
