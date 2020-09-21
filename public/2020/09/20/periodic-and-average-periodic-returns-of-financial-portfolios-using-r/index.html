@@ -181,7 +181,7 @@ tb$Month = factor(tb$Month, levels = month.abb) #lists abbreviated months in chr
 library(dplyr)
 tb&lt;-select(tb, 3,4,2)
 
-## include mean return in the plots (in adition to monthly returns). 
+## include a row of average monthly return for each month (in adition to monthly returns since 1927). 
 agg = aggregate(tb$Return,by = list(month=tb$Month),FUN = mean)
 agg$Year&lt;-&quot;Average Monthly Return \n since 1927&quot;
 colnames(agg) &lt;- c(&quot;Month&quot;, &quot;Return&quot;, &quot;Year&quot;)
@@ -862,7 +862,7 @@ Return
 </tbody>
 </table>
 <p>Readers who are curious about those historical days may consult the literature. For example, the infamous day <code>1987-10-19</code> happens to be what is known in market history as the Black Monday. The crashes in October of 1929 signaled the beginning of the Great Depression. See, e.g., [4].</p>
-<p>Readers interested in similar or more interesting results that may be check using (R-) codes may consult Hirsch’s book [1].</p>
+<p>Readers interested in similar or more interesting results that may be checked using (R-) codes may consult Hirsch’s book [1].</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>

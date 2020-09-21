@@ -1,5 +1,5 @@
 ---
-title: "Periodic and Average Periodic Returns of Financial Portfolios using R"
+title: "Periodic and Average Periodic Returns of Financial Portfolios using not R"
 author: "Dawit Aberra"
 date: 2020-09-20
 categories: ["R"]
@@ -70,7 +70,7 @@ tb$Month = factor(tb$Month, levels = month.abb) #lists abbreviated months in chr
 library(dplyr)
 tb<-select(tb, 3,4,2)
 
-## include mean return in the plots (in adition to monthly returns). 
+## include a row of average monthly return for each month (in adition to monthly returns since 1927). 
 agg = aggregate(tb$Return,by = list(month=tb$Month),FUN = mean)
 agg$Year<-"Average Monthly Return \n since 1927"
 colnames(agg) <- c("Month", "Return", "Year")
@@ -140,7 +140,7 @@ head(tb2, n=15) %>% kbl(caption = "Worst historical days of market") %>% kable_c
 Readers who are curious about those historical days may consult the  literature. For example, the infamous day `1987-10-19` happens to be what is known in market history as the Black Monday. The crashes in October of 1929 signaled the beginning of the Great Depression. See, e.g.,  [4]. 
 
 
-Readers interested in similar or more interesting results that may be check using (R-) codes may consult Hirsch's book [1].
+Readers interested in similar or more interesting results that may be checked using (R-) codes may consult Hirsch's book [1].
 
 
 ## References
