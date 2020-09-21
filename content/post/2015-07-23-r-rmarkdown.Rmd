@@ -1,5 +1,5 @@
 ---
-title: "RMarkdown + Blogdown + Hugo + Github + Netlify"
+title: "RMarkdown + Github +Hugo + Blogdown +  Netlify: Develope your own blogging site"
 author: "Dawit Aberra"
 date: 2020-07-19
 categories: ["R"]
@@ -13,7 +13,20 @@ knitr::opts_chunk$set(collapse = TRUE)
 # The Plan
 If you are interested in building your own website where you can sometimes blog and link your blogs with other famous blogging sites such as [R-Bloggers](https://www.r-bloggers.com/) and [Python Bloggers](https://python-bloggers.com/), you should expect to be very familiar with Blogdown, Hugo Themes, Github and Netlify. If you, like me,  are familiar with R/RStudio and a feature in RStudio called R Markdown, which is mostly used for type-setting your code loaded works with expected outputs in file extensions like .Rmd, .md, .html, .pdf and word, then you do not have to worry about the first step. What is next, and what are those names listed in the title?
 
-# Install Blogdown
-(to be continued)
+# Create a Github Account
+If you did not yet, start by opening a [GitHub account](https://github.com/). You will then need to create your first repository and copy the link of the repository [More on this?](https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/creating-your-first-repository-using-github-desktop).
+GitHub is a version control hub where smart people who work for big tech companies develop software packages and it can be intimidating, but you can get through it.
+
+# Pick your Favorite Theme
+For beginners, the best theme choice for the first site is probably the [default one](https://github.com/yihui/hugo-lithium.git) but there are [more than 200 themes](https://themes.gohugo.io/) that you may go over and pick. You will need 
+the name of the theme. For example, the default them is `yihui/hugo-lithium'.
+
+# Create your first website building project.
+My experience is that the best instruction is given via you tube videos as opposed to written instructions that you may find by googling, unless you have time to read [Bookdown](https://bookdown.org/yihui/blogdown/a-quick-example.html). 
+
+I  carefully followed the steps in [this youtube video](https://www.youtube.com/watch?v=OG_i6WzRvL4), and found it helpful the first time. Problems will come when you start executing. As you try over several themes, your R crashes or freezes several times, your Git button will sometimes disappear from your project/RStudio, just to mention a few of the problems. So, what are you going to do when all kinds of troubles with building your first website continue to surface? Quit? 
+
+As I complete writing this, I will concentrate more on the trouble-shootings. 
+
 
 
