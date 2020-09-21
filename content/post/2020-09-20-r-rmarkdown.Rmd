@@ -1,5 +1,5 @@
 ---
-title: "Periodic and Average Periodic Returns of Financial Portfolios using not R"
+title: "Periodic and Average Periodic Returns of Financial Portfolios using R"
 author: "Dawit Aberra"
 date: 2020-09-20
 categories: ["R"]
@@ -117,7 +117,7 @@ library(scales)
 g<-ggplot(data=tb[(length(tb$Return)-12+1):length(tb$Return),], aes(x=Month, y=Return)) 
 g<-g+geom_col(aes(fill = Month), position = "dodge")
 g<-g+facet_grid(rows = vars(Year))
-g<-g+labs(title=paste("Average Monthly % Return of", symbolname),subtitle="With Monthly % Return (with data since 1927) stamped on top/bottom of each bar")
+g<-g+labs(title=paste("Average Monthly % Return of", symbolname),subtitle="With AMPR  stamped on top/bottom of each bar (data since 1927)")
 g<-g+geom_text(aes(label = paste(round(Return*100,1), "%"), vjust = ifelse(Return >= 0, -0.1, 1.1)), size=3.5)  
 g<-g+scale_y_continuous("Average (Mean) Monthly Return", labels = percent_format(),expand = expansion(mult = c(0.2, 0.2))) 
 g
