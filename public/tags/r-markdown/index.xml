@@ -13,7 +13,7 @@
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/09/20/elementary-mathematics-using-r/</guid>
-      <description>TutorialThis is a compilation of basic codes for doing elementary mathematic (college algebra, calculus)
+      <description>Tutorial (draft)This is a compilation of basic codes for doing elementary mathematic (college algebra, calculus)
 The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage and other software. However, you can also do some math using R with the convenience of RStudio and R Markdown.
 # install.packages(&amp;quot;mosaic&amp;quot;, &amp;quot;mosaicCalc&amp;quot;)require(mosaic)require(mosaicCalc)## Given g(x)=3*x^2 -2*x +1, find g(2). g&amp;lt;-makeFun(3*x^2 -2*x +1 ~ x)g(2)## [1] 9## Given g(x)=3*x^2 -2*x +1, find g(2) (same probem as before ## but using base R, not the Mosaic package)g &amp;lt;- function(x){3*x^2 -2*x +1}g(2)## [1] 9## Plot the function y=3x^2-x-2 on the interval [-10, 10]plotFun(3*x^2 -2*x +1 ~x, x.</description>
     </item>

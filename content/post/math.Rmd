@@ -10,7 +10,7 @@ tags: ["R Markdown", "plot", "R"]
 knitr::opts_chunk$set(collapse = TRUE)
 ```
 
-## Tutorial
+## Tutorial (draft)
 This is a compilation of basic codes for doing elementary mathematic (college algebra, calculus)
 
 The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage and other software.  However, you can also do some math using R with the convenience of RStudio and R Markdown.
