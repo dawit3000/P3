@@ -1,4 +1,4 @@
-baseurl = "https://rstories.netlify.app/"
+baseurl = "/"
 languageCode = "en-us"
 title = "R Stories"
 theme = "hugo-lithium"
@@ -7,7 +7,7 @@ disqusShortname = ""
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [permalinks]
-    post = "/:year/:month/:day/:slug/"
+    post = "/:year/:month/:day/:title/"
 
 [[menu.main]]
     name = "About R-STORIES"
