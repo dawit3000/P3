@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on R Stories</title>
-    <link>https://rstories.netlify.app/categories/r/</link>
+    <link>/categories/r/</link>
     <description>Recent content in R on R Stories</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 21 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://rstories.netlify.app/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Periodic and Average Periodic Returns of Financial Portfolios using R</title>
-      <link>https://rstories.netlify.app/2020-09-20-r-rmarkdown/</link>
+      <link>/2020-09-20-r-rmarkdown/</link>
       <pubDate>Mon, 21 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://rstories.netlify.app/2020-09-20-r-rmarkdown/</guid>
+      <guid>/2020-09-20-r-rmarkdown/</guid>
       <description>IntroductionInstitutional and Hedge Fund managers return from summer vacation and adjust their financial portfolios at the end of each summer, causing a selloff pressure in the market. September is considered a bad month for the Bulls [1]
 “Given that September tends to be a bad month for the market, I’m urging you to be prepared …” Jim Cramer on CNBC, September 11, 2020.
 For this and other reasons, such as election hypes, pandemic, etc.</description>
@@ -20,21 +20,32 @@ For this and other reasons, such as election hypes, pandemic, etc.</description>
     
     <item>
       <title>Elementary Mathematics using R</title>
-      <link>https://rstories.netlify.app/2020/09/20/elementary-mathematics-using-r/</link>
+      <link>/2020/09/20/elementary-mathematics-using-r/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://rstories.netlify.app/2020/09/20/elementary-mathematics-using-r/</guid>
+      <guid>/2020/09/20/elementary-mathematics-using-r/</guid>
       <description>Tutorial (draft)This is a compilation of basic codes for doing elementary mathematic (college algebra, calculus)
 The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage and other software. However, you can also do some math using R with the convenience of RStudio and R Markdown.
 # install.packages(&amp;quot;mosaic&amp;quot;, &amp;quot;mosaicCalc&amp;quot;)require(mosaic)require(mosaicCalc)## Given g(x)=3*x^2 -2*x +1, find g(2). g&amp;lt;-makeFun(3*x^2 -2*x +1 ~ x)g(2)## [1] 9## Given g(x)=3*x^2 -2*x +1, find g(2) (same probem as before ## but using base R, not the Mosaic package)g &amp;lt;- function(x){3*x^2 -2*x +1}g(2)## [1] 9## Plot the function y=3x^2-x-2 on the interval [-10, 10]plotFun(3*x^2 -2*x +1 ~x, x.</description>
     </item>
     
     <item>
+      <title>Periodic and Average Periodic Returns of Financial Portfolios using R</title>
+      <link>/2020/09/20/periodic-and-average-periodic-returns-of-financial-portfolios-using-r/</link>
+      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/09/20/periodic-and-average-periodic-returns-of-financial-portfolios-using-r/</guid>
+      <description>IntroductionInstitutional and Hedge Fund managers return from summer vacation and adjust their financial portfolios at the end of each summer, causing a selloff pressure in the market. September is considered a bad month for the Bulls [1]
+“Given that September tends to be a bad month for the market, I’m urging you to be prepared …” Jim Cramer on CNBC, September 11, 2020.
+For this and other reasons, such as election, pandemic, etc.</description>
+    </item>
+    
+    <item>
       <title>RMarkdown &#43; Github &#43;Hugo &#43; Blogdown &#43;  Netlify: Develope your own blogging site</title>
-      <link>https://rstories.netlify.app/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</link>
+      <link>/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</link>
       <pubDate>Sun, 19 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://rstories.netlify.app/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</guid>
+      <guid>/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</guid>
       <description>The PlanIf you are interested in building your own website where you can sometimes blog and link your blogs with other famous blogging sites such as R-bloggers and PYTHON-BLOGGERS, you will be very familiar with Blogdown, Hugo Themes, Github and Netlify. If you, like me, are familiar with R/RStudio and a feature in RStudio called R Markdown, which is mostly used for type-setting your code loaded works with expected outputs in file extensions like .</description>
     </item>
     
