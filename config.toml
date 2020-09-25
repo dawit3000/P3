@@ -1,4 +1,4 @@
-baseurl = "https://rstories.netlify.app/"
+baseurl = "https://rstories.netlify.app"
 languageCode = "en-us"
 title = "R Stories"
 theme = "hugo-lithium"
