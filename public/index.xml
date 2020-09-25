@@ -6,16 +6,891 @@
     <description>Recent content on R Stories</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Periodic and Average Periodic Returns of Financial Portfolios using R</title>
+      <link>/2020-09-20-r-rmarkdown/</link>
+      <pubDate>Mon, 21 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020-09-20-r-rmarkdown/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Institutional and Hedge Fund managers return from summer vacation and adjust their financial portfolios at the end of each summer, causing a selloff pressure in the market. September is considered a bad month for the Bulls [1]&lt;/p&gt;
+&lt;p&gt;“Given that September tends to be a bad month for the market, I’m urging you to be prepared …” Jim Cramer on CNBC, September 11, 2020.&lt;/p&gt;
+&lt;p&gt;For this and other reasons, such as election hypes, pandemic, etc., people with trading, investing or retirement portfolios may want to know how their financial portfolios (or instruments such as stocks or ETFs in their portfolios) performed over some years, months, weeks or days. They may also want to know the average monthly, yearly, weekly or daily returns, starting from some fixed time of start in the past to the present or recent time.&lt;/p&gt;
+&lt;p&gt;Almost all portfolio managers measure performance with reference to a benchmark [3].
+In this short note, we will consider the historical data of the Standard and Poor’s 500 Index (S&amp;amp;P 500, symbol=^GSPC) from Yahoo! Finance, which is widely regarded as the best gauge of large-cap U.S. equities. Other well known benchmarks include DOW-30, NASDAQ-100, and the Russell 2000 Index for small-caps.&lt;/p&gt;
+&lt;p&gt;We will then outline a simple way to visualize or summarize monthly returns as well as average monthly returns using R. Interested readers can modify the instrument, period and length of time to their preference.&lt;/p&gt;
+&lt;p&gt;We start by installing the R packages that will be needed to produce libraries later. For more information about one of the key packages used here, the &lt;code&gt;tidyquant&lt;/code&gt; package, see [2].&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Load Packages for the libraries that will be needed
+##install.packages(c(&amp;quot;tidyquant&amp;quot;,&amp;quot;ggplot2&amp;quot;,&amp;quot;RColorBrewer&amp;quot;,&amp;quot;kableExtra&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;getting-and-preparing-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Getting and Preparing Data&lt;/h2&gt;
+&lt;p&gt;We will get the data for the S&amp;amp;P 500 Index, symbol = ^GSPC, from Yahoo! Finance. We will then prepare the data for visualization and/or Summarization of results as needed.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;##Get data 
+library(tidyquant)
+library(timetk)
+symbol &amp;lt;- tq_get(&amp;quot;^GSPC&amp;quot;,from = &amp;quot;1927-12-01&amp;quot;, to = &amp;quot;2020-12-31&amp;quot;, get = &amp;quot;stock.prices&amp;quot;)
+symbolname&amp;lt;-&amp;quot;^GSPC&amp;quot; #we need this for reproducible labels of our plot outputs.
+
+
+##Create a tibble, tb, for ^GSPC Monthly Returns. 
+tb&amp;lt;-tq_transmute(data=symbol, select = adjusted,mutate_fun = periodReturn, period = &amp;quot;monthly&amp;quot;,col_rename = &amp;quot;Return&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This &lt;code&gt;tibble&lt;/code&gt; has 1114 rows and 2 columns and you can view the head of the data in any format you wish.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(kableExtra)
+head(tb) %&amp;gt;%
+  kbl(caption = &amp;quot;Monthly Returns&amp;quot;) %&amp;gt;%
+  kable_classic(full_width = F, html_font = &amp;quot;Cambria&amp;quot;) %&amp;gt;% kable_styling()&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34; lightable-classic table&#34; style=&#34;font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;caption&gt;
+&lt;span id=&#34;tab:unnamed-chunk-3&#34;&gt;Table 1: &lt;/span&gt;Monthly Returns
+&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+date
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Return
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1927-12-30
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0000000
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1928-01-31
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0050963
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1928-02-29
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0176437
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1928-03-30
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1170337
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1928-04-30
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0243775
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1928-05-31
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0126582
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;To make our work a bit easier, we create new columns of &lt;code&gt;Month&lt;/code&gt; and &lt;code&gt;Year&lt;/code&gt; from the &lt;code&gt;date&lt;/code&gt; column of &lt;code&gt;tb&lt;/code&gt; and select only the columns we want in the order of our desire. In addition to returns of each month by year, we will be interested on the average (mean) monthly returns. To that end, we will create new rows for the average monthly returns from the beginning of the data (1927) to the present year (2020).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Create new Year and Month Columns
+tb$Year&amp;lt;-format(as.Date(tb$date), format = &amp;quot;%Y&amp;quot;)
+tb$Month&amp;lt;-format(as.Date(tb$date), format =&amp;quot;%b&amp;quot;)
+tb$Month = factor(tb$Month, levels = month.abb) #lists abbreviated months in chronological order when plotting
+
+## Select only the columns we need
+library(dplyr)
+tb&amp;lt;-select(tb, 3,4,2)
+
+## include mean return in the plots (in adition to monthly returns). 
+agg = aggregate(tb$Return,by = list(month=tb$Month),FUN = mean)
+agg$Year&amp;lt;-&amp;quot;Average Return \n since 1927&amp;quot;
+colnames(agg) &amp;lt;- c(&amp;quot;Month&amp;quot;, &amp;quot;Return&amp;quot;, &amp;quot;Year&amp;quot;)
+agg&amp;lt;-select(agg, 3,1,2)
+tb&amp;lt;-rbind(tb,agg)
+head(tb)%&amp;gt;%
+  kbl(caption = &amp;quot;Monthly Returns and Average Monthly Returns&amp;quot;) %&amp;gt;%
+  kable_classic(full_width = F, html_font = &amp;quot;Cambria&amp;quot;) %&amp;gt;% kable_styling()&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34; lightable-classic table&#34; style=&#34;font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;caption&gt;
+&lt;span id=&#34;tab:unnamed-chunk-4&#34;&gt;Table 2: &lt;/span&gt;Monthly Returns and Average Monthly Returns
+&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+Year
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+Month
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Return
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Dec
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0000000
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1928
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Jan
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0050963
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1928
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Feb
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0176437
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1928
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Mar
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1170337
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1928
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Apr
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0243775
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1928
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+May
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0126582
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The last 12 rows contain the average (mean) monthly returns from the start date of the data to the present year, preceded by the monthly returns of the most recent years. Since this note is written in September of 2020, the 2020 data is only for 9 months at this writing.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tail(tb,n=34) %&amp;gt;%
+  kbl(caption = &amp;quot;Monthly Returns and Average Monthly Returns&amp;quot;) %&amp;gt;%
+  kable_classic(full_width = F, html_font = &amp;quot;Cambria&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34; lightable-classic&#34; style=&#34;font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;caption&gt;
+&lt;span id=&#34;tab:unnamed-chunk-5&#34;&gt;Table 3: &lt;/span&gt;Monthly Returns and Average Monthly Returns
+&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+Year
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+Month
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Return
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2018
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Dec
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0917769
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Jan
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0786844
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Feb
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0297289
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Mar
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0179243
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Apr
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0393135
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+May
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0657777
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Jun
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0689302
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Jul
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0131282
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Aug
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0180916
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Sep
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0171812
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Oct
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0204318
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Nov
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0340470
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Dec
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0285898
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Jan
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0016281
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Feb
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0841105
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Mar
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.1251193
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Apr
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1268440
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+May
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0452818
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Jun
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0183884
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Jul
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0551013
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Aug
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0700647
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Sep
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0516640
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Average Return
+since 1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Jan
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0123258
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Average Return
+since 1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Feb
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0011168
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Average Return
+since 1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Mar
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0041122
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Average Return
+since 1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Apr
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0140813
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Average Return
+since 1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+May
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0004602
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Average Return
+since 1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Jun
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0075405
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Average Return
+since 1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Jul
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0159214
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Average Return
+since 1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Aug
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0070290
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Average Return
+since 1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Sep
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0104641
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Average Return
+since 1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Oct
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0046096
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Average Return
+since 1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Nov
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0074612
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Average Return
+since 1927
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Dec
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0129007
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;visualizing-the-tidy-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Visualizing the tidy data&lt;/h2&gt;
+&lt;p&gt;We can now visualize the data to our liking.
+A column plot (bar plot) of monthly returns during the most recent five years (four years and nine months since this note was written in September) with a plot of Average Monthly Return (since 1927) of each month at the bottom may be done as follows.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Plot using ggplot2
+library(ggplot2)
+library(scales)
+g&amp;lt;-ggplot(data=tb[(length(tb$Return)-(4*12+9)+1):length(tb$Return),], aes(x=Month, y=Return)) 
+g&amp;lt;-g+geom_col(aes(fill = Month), position = &amp;quot;dodge&amp;quot;)
+g&amp;lt;-g+facet_grid(rows = vars(Year))
+g&amp;lt;-g+labs(title=paste(&amp;quot;Monthly % Returns of&amp;quot;, symbolname),subtitle=&amp;quot;With % return stamped on top/bottom of each bar&amp;quot;)
+g&amp;lt;-g+geom_text(aes(label = paste(round(Return*100,1), &amp;quot;%&amp;quot;), vjust = ifelse(Return &amp;gt;= 0, -0.1, 1.1)), size=3.5)  
+g&amp;lt;-g+scale_y_continuous(&amp;quot;Returns in Percentage&amp;quot;, labels = percent_format(),expand = expansion(mult = c(0.2, 0.2))) 
+g&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/2020-09-20-r-rmarkdown_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;864&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;If we are interested in a separate plot for the Average (mean) Monthly Return of each month (from 1927 to the present day), we can select the last 12 rows of &lt;code&gt;tb&lt;/code&gt; and use the same code. We also need to adjust the title and labels of the axes.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Plot using ggplot2 
+library(ggplot2)
+library(scales)
+g&amp;lt;-ggplot(data=tb[(length(tb$Return)-12+1):length(tb$Return),], aes(x=Month, y=Return)) 
+g&amp;lt;-g+geom_col(aes(fill = Month), position = &amp;quot;dodge&amp;quot;)
+g&amp;lt;-g+facet_grid(rows = vars(Year))
+g&amp;lt;-g+labs(title=paste(&amp;quot;Average Monthly Return of&amp;quot;, symbolname),subtitle=&amp;quot;With mean %age return since 1927 stamped on top/bottom of each bar&amp;quot;)
+g&amp;lt;-g+geom_text(aes(label = paste(round(Return*100,1), &amp;quot;%&amp;quot;), vjust = ifelse(Return &amp;gt;= 0, -0.1, 1.1)), size=3.5)  
+g&amp;lt;-g+scale_y_continuous(&amp;quot;Average (Mean) Monthly Return&amp;quot;, labels = percent_format(),expand = expansion(mult = c(0.2, 0.2))) 
+g&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/2020-09-20-r-rmarkdown_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summarizing-other-important-tales&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summarizing other important tales&lt;/h2&gt;
+&lt;p&gt;There were several interesting market events in history. Interested readers may use codes and data to get summary of results in the format of their liking.
+For example, if we are interested in the list of the fifteen worst days of the S&amp;amp;P 500 Index, we can run the following chunk.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;symbol2 &amp;lt;- tq_get(&amp;quot;^GSPC&amp;quot;,from = &amp;quot;1928-01-01&amp;quot;, to = &amp;quot;2020-12-31&amp;quot;, get = &amp;quot;stock.prices&amp;quot;)
+tb2&amp;lt;-tq_transmute(data=symbol2, select = adjusted,mutate_fun = periodReturn, period = &amp;quot;daily&amp;quot;,col_rename = &amp;quot;Return&amp;quot;)
+tb2&amp;lt;-tb2[order(tb2$Return,decreasing = FALSE),]
+tb2$Return&amp;lt;-paste(round(100*(tb2$Return),1),&amp;quot;%&amp;quot;)
+head(tb2, n=15) %&amp;gt;% kbl(caption = &amp;quot;Worst historical days of market&amp;quot;) %&amp;gt;% kable_classic(full_width = F, html_font = &amp;quot;Cambria&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34; lightable-classic&#34; style=&#34;font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;caption&gt;
+&lt;span id=&#34;tab:unnamed-chunk-8&#34;&gt;Table 4: &lt;/span&gt;Worst historical days of market
+&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+date
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+Return
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1987-10-19
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-20.5 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1929-10-28
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-12.9 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020-03-16
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-12 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1929-10-29
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-10.2 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1935-04-16
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-10 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1929-11-06
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-9.9 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1946-09-03
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-9.9 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020-03-12
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-9.5 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1937-10-18
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-9.1 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1931-10-05
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-9.1 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2008-10-15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-9 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2008-12-01
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-8.9 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1933-07-20
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-8.9 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2008-09-29
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-8.8 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1933-07-21
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+-8.7 %
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Readers who are curious to know what happened during those historical days may consult the literature. For example, the infamous day &lt;code&gt;1987-10-19&lt;/code&gt; happens to be what is known in market history as the Black Monday; the crashes in October of 1929 signaled the beginning of the Great Depression, see e.g. [4].&lt;/p&gt;
+&lt;p&gt;Readers interested in similar or more interesting results that may be check using (R-) codes may consult Hirsch’s book [1].&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;[1]&lt;/code&gt; Jeffrey A. Hirsch, &lt;em&gt;Stock Trader’s Almanac 2020 (Almanac Investor Series),&lt;/em&gt; 16th Edition, ISBN-13: 978-1119596295.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/tidyquant/tidyquant.pdf&#34;&gt;&lt;code&gt;[2]&lt;/code&gt; M. Dancho &amp;amp; D. Vaughan, &lt;em&gt;Tidy Quantitative Financial Analysis,&lt;/em&gt; The Comprehensive R Archive Network (CRAN), July 2, 2020.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://journal.r-project.org/archive/2013-2/lu-kane.pdf&#34;&gt;&lt;code&gt;[3]&lt;/code&gt; Y. Lu and D. Kane, &lt;em&gt;Performance Attribution for Equity Portfolios,&lt;/em&gt; The R Journal, Vol. 5/2, December 2013&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[4]&lt;/code&gt; S. Nations, C. Grove, et al., &lt;em&gt;A History of the United States in Five Crashes: Stock Market Meltdowns That
+Defined a Nation, &lt;/em&gt;William Morrow (Publisher); 1st Edition, June 13, 2017.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/2020/09/20/</link>
+      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/09/20/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Elementary Mathematics using R</title>
       <link>/2020/09/20/elementary-mathematics-using-r/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/09/20/elementary-mathematics-using-r/</guid>
-      <description>Tutorial (draft)This is a compilation of basic codes for doing elementary mathematic (college algebra, calculus)
-The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage and other software. However, you can also do some math using R with the convenience of RStudio and R Markdown.
-# install.packages(&amp;quot;mosaic&amp;quot;, &amp;quot;mosaicCalc&amp;quot;)require(mosaic)require(mosaicCalc)## Given g(x)=3*x^2 -2*x +1, find g(2). g&amp;lt;-makeFun(3*x^2 -2*x +1 ~ x)g(2)## [1] 9## Given g(x)=3*x^2 -2*x +1, find g(2) (same probem as before ## but using base R, not the Mosaic package)g &amp;lt;- function(x){3*x^2 -2*x +1}g(2)## [1] 9## Plot the function y=3x^2-x-2 on the interval [-10, 10]plotFun(3*x^2 -2*x +1 ~x, x.</description>
+      <description>
+
+
+&lt;div id=&#34;tutorial-draft&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Tutorial (draft)&lt;/h2&gt;
+&lt;p&gt;This is a compilation of basic codes for doing elementary mathematic (college algebra, calculus)&lt;/p&gt;
+&lt;p&gt;The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage and other software. However, you can also do some math using R with the convenience of RStudio and R Markdown.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# install.packages(&amp;quot;mosaic&amp;quot;, &amp;quot;mosaicCalc&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+require(mosaic)
+require(mosaicCalc)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Given g(x)=3*x^2 -2*x +1, find g(2). 
+g&amp;lt;-makeFun(3*x^2 -2*x +1 ~ x)
+g(2)
+## [1] 9&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Given g(x)=3*x^2 -2*x +1, find g(2) (same probem as before 
+## but using base R, not the Mosaic package)
+g &amp;lt;- function(x){3*x^2 -2*x +1}
+g(2)
+## [1] 9&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Plot the function y=3x^2-x-2 on the interval [-10, 10]
+plotFun(3*x^2 -2*x +1 ~x, x.lim=range(-10,10) )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/math_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+##Plot the function y=3x^2-x-2 on the interval [-10, 10] 
+##same problem as before but using base R, not the Mosaic package
+curve(3*x^2 -2*x +1, -10, 10)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/math_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Plot the function y=3x^2-x-2 on the interval [-10, 10]. 
+## Use ggplot2
+library(&amp;quot;ggplot2&amp;quot;)
+eq = function(x){3*x^2 -2*x +1}
+g&amp;lt;-ggplot(data.frame(x=c(-10, 10)), aes(x=x))
+g&amp;lt;-g+ stat_function(fun=eq)
+g&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/math_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Solve the equation x^2 +x -6=0 for x.
+findZeros(x^2 +x -6 ~ x,x.lim=range(-Inf, Inf))
+##    x
+## 1 -3
+## 2  2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## F(x)= 3*x^2 -2*x +1, find F&amp;#39;(2)  (derivative of F at x=2)
+g&amp;lt;- D(x^2 -2 ~ x)
+g(2)
+## [1] 4&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Evaluate the definite integral \int_{-1}^{2}(x^2-2x+1)dx
+F&amp;lt;-antiD(x^2-2*x+1 ~ x)
+F(2)-F(1)
+## [1] 0.3333333&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(DRAFT=TRUE)&lt;/p&gt;
+&lt;/div&gt;
+</description>
     </item>
     
     <item>
@@ -24,9 +899,7 @@ The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage 
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/09/20/periodic-and-average-periodic-returns-of-financial-portfolios-using-r/</guid>
-      <description>IntroductionInstitutional and Hedge Fund managers return from summer vacation and adjust their financial portfolios at the end of each summer, causing a selloff pressure in the market. September is considered a bad month for the Bulls [1]
-“Given that September tends to be a bad month for the market, I’m urging you to be prepared …” Jim Cramer on CNBC, September 11, 2020.
-For this and other reasons, such as election, pandemic, etc.</description>
+      <description></description>
     </item>
     
     <item>
@@ -35,7 +908,235 @@ For this and other reasons, such as election, pandemic, etc.</description>
       <pubDate>Sun, 19 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</guid>
-      <description>The PlanIf you are interested in building your own website where you can sometimes blog and link your blogs with other famous blogging sites such as R-bloggers and PYTHON-BLOGGERS, you will be very familiar with Blogdown, Hugo Themes, Github and Netlify. If you, like me, are familiar with R/RStudio and a feature in RStudio called R Markdown, which is mostly used for type-setting your code loaded works with expected outputs in file extensions like .</description>
+      <description>
+
+
+&lt;div id=&#34;the-plan&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;The Plan&lt;/h1&gt;
+&lt;p&gt;If you are interested in building your own website where you can sometimes blog and link your blogs with other famous blogging sites such as &lt;a href=&#34;https://www.r-bloggers.com/&#34;&gt;R-bloggers&lt;/a&gt; and &lt;a href=&#34;https://python-bloggers.com/&#34;&gt;PYTHON-BLOGGERS&lt;/a&gt;, you will be very familiar with Blogdown, Hugo Themes, Github and Netlify. If you, like me, are familiar with R/RStudio and a feature in RStudio called R Markdown, which is mostly used for type-setting your code loaded works with expected outputs in file extensions like .Rmd, .md, .html, .pdf and word, then you do not have to worry about the first step. What is next, and what are those names listed in the title?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;open-a-github-account-and-create-your-first-ripository&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Open a Github account and create your first ripository&lt;/h1&gt;
+&lt;p&gt;If you did not yet, open a &lt;a href=&#34;https://github.com/&#34;&gt;GitHub account&lt;/a&gt;. You will then need to create your first repository and copy the link of the repository &lt;a href=&#34;https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/creating-your-first-repository-using-github-desktop&#34;&gt;(More on this?)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;GitHub is a version control hub where smart people who work for big tech companies develop software packages and it can be intimidating, but you can get through it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;pick-your-favorite-theme&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Pick your Favorite Theme&lt;/h1&gt;
+&lt;p&gt;For beginners, the best theme choice for the first site is probably the &lt;a href=&#34;https://github.com/yihui/hugo-lithium.git&#34;&gt;default one&lt;/a&gt; but there are &lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;more than 200 themes&lt;/a&gt; that you may go over and pick. You will need
+the name of the theme. For example, the default them is `yihui/hugo-lithium’.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;create-your-first-website-building-project.&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Create your first website building project.&lt;/h1&gt;
+&lt;p&gt;My experience is that the best instruction is given via youtube videos as opposed to written instructions that you may find by googling, unless you have time to read the book: &lt;a href=&#34;https://bookdown.org/yihui/blogdown/a-quick-example.html&#34;&gt;“blogdown: Creating Websites with R Markdown”&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I carefully followed the steps in &lt;a href=&#34;https://www.youtube.com/watch?v=OG_i6WzRvL4&#34;&gt;this youtube video&lt;/a&gt;, and found it helpful the first time. Problems will come when you start executing. As you try over several themes, your R crashes or freezes several times, your Git button will sometimes disappear from your Project/RStudio, just to mention a few of the problems that may try to discourage you from continuing. So, what are you going to do when these kinds of troubles with building your first website continue to surface? Quit?&lt;/p&gt;
+&lt;p&gt;There are plenty of resourses that will help you complete your website. So, as I continue to write this, I will concentrate on the problems I encountered and resolved.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A Plain Markdown Post</title>
+      <link>/2016/12/30/a-plain-markdown-post/</link>
+      <pubDate>Fri, 30 Dec 2016 21:49:57 -0700</pubDate>
+      
+      <guid>/2016/12/30/a-plain-markdown-post/</guid>
+      <description>&lt;p&gt;This is a post written in plain Markdown (&lt;code&gt;*.md&lt;/code&gt;) instead of R Markdown (&lt;code&gt;*.Rmd&lt;/code&gt;). The major differences are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (&lt;code&gt;```{r}&lt;/code&gt;);&lt;/li&gt;
+&lt;li&gt;A plain Markdown post is rendered through &lt;a href=&#34;https://gohugo.io/overview/configuration/&#34;&gt;Blackfriday&lt;/a&gt;, and an R Markdown document is compiled by &lt;a href=&#34;http://rmarkdown.rstudio.com&#34;&gt;&lt;strong&gt;rmarkdown&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&#34;http://pandoc.org&#34;&gt;Pandoc&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;There are many differences in syntax between Blackfriday&amp;rsquo;s Markdown and Pandoc&amp;rsquo;s Markdown. For example, you can write a task list with Blackfriday but not with Pandoc:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Write an R package.&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Write a book.&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &amp;hellip;&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Profit!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Similarly, Blackfriday does not support LaTeX math and Pandoc does. I have added the MathJax support to this theme (&lt;a href=&#34;https://github.com/yihui/hugo-lithium&#34;&gt;hugo-lithium&lt;/a&gt;) but there is a caveat for plain Markdown posts: you have to include math expressions in a pair of backticks (inline: &lt;code&gt;`$ $`&lt;/code&gt;; display style: &lt;code&gt;`$$ $$`&lt;/code&gt;), e.g., &lt;code&gt;$S_n = \sum_{i=1}^n X_i$&lt;/code&gt;.^[This is because we have to protect the math expressions from being interpreted as Markdown. You may not need the backticks if your math expression does not contain any special Markdown syntax such as underscores or asterisks, but it is always a safer choice to use backticks. When you happen to have a pair of literal dollar signs inside the same element, you can escape one dollar sign, e.g., &lt;code&gt;\$50 and $100&lt;/code&gt; renders &amp;ldquo;$50 and $100&amp;rdquo;.] For R Markdown posts, you do not need the backticks, because Pandoc can identify and process math expressions.&lt;/p&gt;
+&lt;p&gt;When creating a new post, you have to decide whether the post format is Markdown or R Markdown, and this can be done via the &lt;code&gt;ext&lt;/code&gt; argument of the function &lt;code&gt;blogdown::new_post()&lt;/code&gt;, e.g.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;blogdown&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;new_post&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Post Title&amp;#34;&lt;/span&gt;, ext &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;.Rmd&amp;#39;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
+      
+      <guid>/about/</guid>
+      <description>&lt;p&gt;This is a &amp;ldquo;hello world&amp;rdquo; example website for the &lt;a href=&#34;https://github.com/rstudio/blogdown&#34;&gt;&lt;strong&gt;blogdown&lt;/strong&gt;&lt;/a&gt; package. The theme was forked from &lt;a href=&#34;https://github.com/jrutheiser/hugo-lithium-theme&#34;&gt;@jrutheiser/hugo-lithium-theme&lt;/a&gt; and modified by &lt;a href=&#34;https://github.com/yihui/hugo-lithium&#34;&gt;Yihui Xie&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Lorem Ipsum</title>
+      <link>/2015/01/01/lorem-ipsum/</link>
+      <pubDate>Thu, 01 Jan 2015 13:09:13 -0600</pubDate>
+      
+      <guid>/2015/01/01/lorem-ipsum/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Lorem ipsum&lt;/strong&gt; dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore &lt;em&gt;magna aliqua&lt;/em&gt;. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/1/01/01/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/01/01/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Institutional and Hedge Fund managers return from summer vacation and
+adjust their financial portfolios at the end of each summer, causing a
+selloff pressure in the market. September is considered a bad month for
+the Bulls [1]&lt;/p&gt;
+&lt;p&gt;“Given that September tends to be a bad month for the market, I’m urging
+you to be prepared …” Jim Cramer on CNBC, September 11, 2020.&lt;/p&gt;
+&lt;p&gt;For this and other reasons, such as election hypes, pandemic, etc.,
+people with trading, investing or retirement portfolios may want to know
+how their financial portfolios (or instruments such as stocks or ETFs in
+their portfolios) performed over some years, months, weeks or days. They
+may also want to know the average monthly, yearly, weekly or daily
+returns, starting from some fixed time of start in the past to the
+present or recent time.&lt;/p&gt;
+&lt;p&gt;Almost all portfolio managers measure performance with reference to a
+benchmark [3]. In this short note, we will consider the historical
+data of the Standard and Poor’s 500 Index (S&amp;amp;P 500, symbol=^GSPC) from
+Yahoo! Finance, which is widely regarded as the best gauge of large-cap
+U.S. equities. Other well known benchmarks include DOW-30, NASDAQ-100,
+and the Russell 2000 Index for small-caps.&lt;/p&gt;
+&lt;p&gt;We will then outline a simple way to visualize or summarize monthly
+returns as well as average monthly returns using R. Interested readers
+can modify the instrument, period and length of time to their
+preference.&lt;/p&gt;
+&lt;p&gt;We start by installing the R packages that will be needed to produce
+libraries later. For more information about one of the key packages used
+here, the &lt;code&gt;tidyquant&lt;/code&gt; package, see [2].&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## Load Packages for the libraries that will be needed
+##install.packages(c(&amp;quot;tidyquant&amp;quot;,&amp;quot;ggplot2&amp;quot;,&amp;quot;RColorBrewer&amp;quot;,&amp;quot;kableExtra&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;getting-and-preparing-data&#34;&gt;Getting and Preparing Data&lt;/h2&gt;
+&lt;p&gt;We will get the data for the S&amp;amp;P 500 Index, symbol = ^GSPC, from Yahoo!
+Finance. We will then prepare the data for visualization and/or
+Summarization of results as needed.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;##Get data 
+library(tidyquant)
+library(timetk)
+symbol &amp;lt;- tq_get(&amp;quot;^GSPC&amp;quot;,from = &amp;quot;1927-12-01&amp;quot;, to = &amp;quot;2020-12-31&amp;quot;, get = &amp;quot;stock.prices&amp;quot;)
+symbolname&amp;lt;-&amp;quot;^GSPC&amp;quot; #we need this for reproducible labels of our plot outputs.
+
+
+##Create a tibble, tb, for ^GSPC Monthly Returns. 
+tb&amp;lt;-tq_transmute(data=symbol, select = adjusted,mutate_fun = periodReturn, period = &amp;quot;monthly&amp;quot;,col_rename = &amp;quot;Return&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This &lt;code&gt;tibble&lt;/code&gt; has 1114 rows and 2 columns and you can view the head of
+the data in any format you wish.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;library(kableExtra)
+head(tb) %&amp;gt;%
+  kbl(caption = &amp;quot;Monthly Returns&amp;quot;) %&amp;gt;%
+  kable_classic(full_width = F, html_font = &amp;quot;Cambria&amp;quot;) %&amp;gt;% kable_styling()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;To make our work a bit easier, we create new columns of &lt;code&gt;Month&lt;/code&gt; and
+&lt;code&gt;Year&lt;/code&gt; from the &lt;code&gt;date&lt;/code&gt; column of &lt;code&gt;tb&lt;/code&gt; and select only the columns we
+want in the order of our desire. In addition to returns of each month by
+year, we will be interested on the average (mean) monthly returns. To
+that end, we will create new rows for the average monthly returns from
+the beginning of the data (1927) to the present year (2020).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## Create new Year and Month Columns
+tb$Year&amp;lt;-format(as.Date(tb$date), format = &amp;quot;%Y&amp;quot;)
+tb$Month&amp;lt;-format(as.Date(tb$date), format =&amp;quot;%b&amp;quot;)
+tb$Month = factor(tb$Month, levels = month.abb) #lists abbreviated months in chronological order when plotting
+
+## Select only the columns we need
+library(dplyr)
+tb&amp;lt;-select(tb, 3,4,2)
+
+## include mean return in the plots (in adition to monthly returns). 
+agg = aggregate(tb$Return,by = list(month=tb$Month),FUN = mean)
+agg$Year&amp;lt;-&amp;quot;Average Return \n since 1927&amp;quot;
+colnames(agg) &amp;lt;- c(&amp;quot;Month&amp;quot;, &amp;quot;Return&amp;quot;, &amp;quot;Year&amp;quot;)
+agg&amp;lt;-select(agg, 3,1,2)
+tb&amp;lt;-rbind(tb,agg)
+head(tb)%&amp;gt;%
+  kbl(caption = &amp;quot;Monthly Returns and Average Monthly Returns&amp;quot;) %&amp;gt;%
+  kable_classic(full_width = F, html_font = &amp;quot;Cambria&amp;quot;) %&amp;gt;% kable_styling()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;The last 12 rows contain the average (mean) monthly returns from the
+start date of the data to the present year, preceded by the monthly
+returns of the most recent years. Since this note is written in
+September of 2020, the 2020 data is only for 9 months at this writing.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;tail(tb,n=34) %&amp;gt;%
+  kbl(caption = &amp;quot;Monthly Returns and Average Monthly Returns&amp;quot;) %&amp;gt;%
+  kable_classic(full_width = F, html_font = &amp;quot;Cambria&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;visualizing-the-tidy-data&#34;&gt;Visualizing the tidy data&lt;/h2&gt;
+&lt;p&gt;We can now visualize the data to our liking. A column plot (bar plot) of
+monthly returns during the most recent five years (four years and nine
+months since this note was written in September) with a plot of Average
+Monthly Return (since 1927) of each month at the bottom may be done as
+follows.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## Plot using ggplot2
+library(ggplot2)
+library(scales)
+g&amp;lt;-ggplot(data=tb[(length(tb$Return)-(4*12+9)+1):length(tb$Return),], aes(x=Month, y=Return)) 
+g&amp;lt;-g+geom_col(aes(fill = Month), position = &amp;quot;dodge&amp;quot;)
+g&amp;lt;-g+facet_grid(rows = vars(Year))
+g&amp;lt;-g+labs(title=paste(&amp;quot;Monthly % Returns of&amp;quot;, symbolname),subtitle=&amp;quot;With % return stamped on top/bottom of each bar&amp;quot;)
+g&amp;lt;-g+geom_text(aes(label = paste(round(Return*100,1), &amp;quot;%&amp;quot;), vjust = ifelse(Return &amp;gt;= 0, -0.1, 1.1)), size=3.5)  
+g&amp;lt;-g+scale_y_continuous(&amp;quot;Returns in Percentage&amp;quot;, labels = percent_format(),expand = expansion(mult = c(0.2, 0.2))) 
+g
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2020-09-20-r-rmarkdown_files/figure-markdown_strict/unnamed-chunk-6-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;If we are interested in a separate plot for the Average (mean) Monthly
+Return of each month (from 1927 to the present day), we can select the
+last 12 rows of &lt;code&gt;tb&lt;/code&gt; and use the same code. We also need to adjust the
+title and labels of the axes.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## Plot using ggplot2 
+library(ggplot2)
+library(scales)
+g&amp;lt;-ggplot(data=tb[(length(tb$Return)-12+1):length(tb$Return),], aes(x=Month, y=Return)) 
+g&amp;lt;-g+geom_col(aes(fill = Month), position = &amp;quot;dodge&amp;quot;)
+g&amp;lt;-g+facet_grid(rows = vars(Year))
+g&amp;lt;-g+labs(title=paste(&amp;quot;Average Monthly Return of&amp;quot;, symbolname),subtitle=&amp;quot;With mean %age return since 1927 stamped on top/bottom of each bar&amp;quot;)
+g&amp;lt;-g+geom_text(aes(label = paste(round(Return*100,1), &amp;quot;%&amp;quot;), vjust = ifelse(Return &amp;gt;= 0, -0.1, 1.1)), size=3.5)  
+g&amp;lt;-g+scale_y_continuous(&amp;quot;Average (Mean) Monthly Return&amp;quot;, labels = percent_format(),expand = expansion(mult = c(0.2, 0.2))) 
+g
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2020-09-20-r-rmarkdown_files/figure-markdown_strict/unnamed-chunk-7-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;summarizing-other-important-tales&#34;&gt;Summarizing other important tales&lt;/h2&gt;
+&lt;p&gt;There were several interesting market events in history. Interested
+readers may use codes and data to get summary of results in the format
+of their liking. For example, if we are interested in the list of the
+fifteen worst days of the S&amp;amp;P 500 Index, we can run the following chunk.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;symbol2 &amp;lt;- tq_get(&amp;quot;^GSPC&amp;quot;,from = &amp;quot;1928-01-01&amp;quot;, to = &amp;quot;2020-12-31&amp;quot;, get = &amp;quot;stock.prices&amp;quot;)
+tb2&amp;lt;-tq_transmute(data=symbol2, select = adjusted,mutate_fun = periodReturn, period = &amp;quot;daily&amp;quot;,col_rename = &amp;quot;Return&amp;quot;)
+tb2&amp;lt;-tb2[order(tb2$Return,decreasing = FALSE),]
+tb2$Return&amp;lt;-paste(round(100*(tb2$Return),1),&amp;quot;%&amp;quot;)
+head(tb2, n=15) %&amp;gt;% kbl(caption = &amp;quot;Worst historical days of market&amp;quot;) %&amp;gt;% kable_classic(full_width = F, html_font = &amp;quot;Cambria&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;Readers who are curious to know what happened during those historical
+days may consult the literature. For example, the infamous day
+&lt;code&gt;1987-10-19&lt;/code&gt; happens to be what is known in market history as the Black
+Monday; the crashes in October of 1929 signaled the beginning of the
+Great Depression, see e.g. [4].&lt;/p&gt;
+&lt;p&gt;Readers interested in similar or more interesting results that may be
+check using (R-) codes may consult Hirsch’s book [1].&lt;/p&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;[1]&lt;/code&gt; Jeffrey A. Hirsch, &lt;em&gt;Stock Trader’s Almanac 2020 (Almanac Investor
+Series),&lt;/em&gt; 16th Edition, ISBN-13: 978-1119596295.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/tidyquant/tidyquant.pdf&#34;&gt;&lt;code&gt;[2]&lt;/code&gt; M. Dancho &amp;amp; D. Vaughan, &lt;em&gt;Tidy Quantitative Financial Analysis,&lt;/em&gt;
+The Comprehensive R Archive Network (CRAN), July 2,
+2020.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://journal.r-project.org/archive/2013-2/lu-kane.pdf&#34;&gt;&lt;code&gt;[3]&lt;/code&gt; Y. Lu and D. Kane, &lt;em&gt;Performance Attribution for Equity
+Portfolios,&lt;/em&gt; The R Journal, Vol. 5/2, December
+2013&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[4]&lt;/code&gt; S. Nations, C. Grove, et al., *A History of the United States in
+Five Crashes: Stock Market Meltdowns That Defined a Nation, *William
+Morrow (Publisher); 1st Edition, June 13, 2017.&lt;/p&gt;
+</description>
     </item>
     
   </channel>

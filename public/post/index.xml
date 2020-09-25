@@ -8,6 +8,15 @@
     <language>en-us</language>
     <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title></title>
+      <link>/2020/09/20/</link>
+      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/09/20/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Elementary Mathematics using R</title>
       <link>/2020/09/20/elementary-mathematics-using-r/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
@@ -24,9 +33,7 @@ The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage 
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/09/20/periodic-and-average-periodic-returns-of-financial-portfolios-using-r/</guid>
-      <description>IntroductionInstitutional and Hedge Fund managers return from summer vacation and adjust their financial portfolios at the end of each summer, causing a selloff pressure in the market. September is considered a bad month for the Bulls [1]
-“Given that September tends to be a bad month for the market, I’m urging you to be prepared …” Jim Cramer on CNBC, September 11, 2020.
-For this and other reasons, such as election, pandemic, etc.</description>
+      <description></description>
     </item>
     
     <item>
@@ -36,6 +43,36 @@ For this and other reasons, such as election, pandemic, etc.</description>
       
       <guid>/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</guid>
       <description>The PlanIf you are interested in building your own website where you can sometimes blog and link your blogs with other famous blogging sites such as R-bloggers and PYTHON-BLOGGERS, you will be very familiar with Blogdown, Hugo Themes, Github and Netlify. If you, like me, are familiar with R/RStudio and a feature in RStudio called R Markdown, which is mostly used for type-setting your code loaded works with expected outputs in file extensions like .</description>
+    </item>
+    
+    <item>
+      <title>A Plain Markdown Post</title>
+      <link>/2016/12/30/a-plain-markdown-post/</link>
+      <pubDate>Fri, 30 Dec 2016 21:49:57 -0700</pubDate>
+      
+      <guid>/2016/12/30/a-plain-markdown-post/</guid>
+      <description>This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
+ You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.  There are many differences in syntax between Blackfriday&amp;rsquo;s Markdown and Pandoc&amp;rsquo;s Markdown.</description>
+    </item>
+    
+    <item>
+      <title>Lorem Ipsum</title>
+      <link>/2015/01/01/lorem-ipsum/</link>
+      <pubDate>Thu, 01 Jan 2015 13:09:13 -0600</pubDate>
+      
+      <guid>/2015/01/01/lorem-ipsum/</guid>
+      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/1/01/01/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/01/01/</guid>
+      <description>Introduction Institutional and Hedge Fund managers return from summer vacation and adjust their financial portfolios at the end of each summer, causing a selloff pressure in the market. September is considered a bad month for the Bulls [1]
+“Given that September tends to be a bad month for the market, I’m urging you to be prepared …” Jim Cramer on CNBC, September 11, 2020.
+For this and other reasons, such as election hypes, pandemic, etc.</description>
     </item>
     
   </channel>
