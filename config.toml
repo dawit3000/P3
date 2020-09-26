@@ -11,7 +11,7 @@ rssLimit = 10
     post = "/:year/:month/:day/:title/"
 
 [[menu.main]]
-    name = "About R-STORIES"
+    name = "About"
     url = "/about/"
 [[menu.main]]
     name = "R-bloggers"
