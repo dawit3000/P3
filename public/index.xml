@@ -20,9 +20,8 @@
 &lt;p&gt;This is a compilation of basic codes for doing elementary mathematics (college algebra, calculus)&lt;/p&gt;
 &lt;p&gt;The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage and other software. However, you can also do some math using R with the convenience of RStudio and R Markdown.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# install.packages(&amp;quot;mosaic&amp;quot;, &amp;quot;mosaicCalc&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
-require(mosaic)
-require(mosaicCalc)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(mosaic)
+library(mosaicCalc)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
 ## Given g(x)=3*x^2 -2*x +1, find g(2)  #base R, that is,no extra package is used.
 g &amp;lt;- function(x){3*x^2 -2*x +1}
@@ -66,12 +65,12 @@ solve(A,b)
 ## [1,] 1.5294118
 ## [2,] 0.6470588&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
-## Given F(x)= 3*x^2 - 2*x +1, find F&amp;#39;(2)  (derivative of F at x=2)
+## Given F(x)= 3*x^2 - 2*x +1, find F&amp;#39;(2)  (derivative of F at x=2)  ##mosaicCal
 g&amp;lt;- D(3*x^2 -2*x + 1 ~ x)
 g(2)
 ## [1] 10&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
-## Evaluate the definite integral \int_{-1}^{2}(x^2-2x+1)dx
+## Evaluate the definite integral \int_{-1}^{2}(x^2-2x+1)dx       ##mosaicCal
 F&amp;lt;-antiD(x^2-2*x+1 ~ x)
 F(2)-F(1)
 ## [1] 0.3333333&lt;/code&gt;&lt;/pre&gt;

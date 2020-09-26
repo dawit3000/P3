@@ -84,9 +84,8 @@
 <p>This is a compilation of basic codes for doing elementary mathematics (college algebra, calculus)</p>
 <p>The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage and other software. However, you can also do some math using R with the convenience of RStudio and R Markdown.</p>
 <pre class="r"><code># install.packages(&quot;mosaic&quot;, &quot;mosaicCalc&quot;)</code></pre>
-<pre class="r"><code>
-require(mosaic)
-require(mosaicCalc)</code></pre>
+<pre class="r"><code>library(mosaic)
+library(mosaicCalc)</code></pre>
 <pre class="r"><code>
 ## Given g(x)=3*x^2 -2*x +1, find g(2)  #base R, that is,no extra package is used.
 g &lt;- function(x){3*x^2 -2*x +1}
@@ -130,12 +129,12 @@ solve(A,b)
 ## [1,] 1.5294118
 ## [2,] 0.6470588</code></pre>
 <pre class="r"><code>
-## Given F(x)= 3*x^2 - 2*x +1, find F&#39;(2)  (derivative of F at x=2)
+## Given F(x)= 3*x^2 - 2*x +1, find F&#39;(2)  (derivative of F at x=2)  ##mosaicCal
 g&lt;- D(3*x^2 -2*x + 1 ~ x)
 g(2)
 ## [1] 10</code></pre>
 <pre class="r"><code>
-## Evaluate the definite integral \int_{-1}^{2}(x^2-2x+1)dx
+## Evaluate the definite integral \int_{-1}^{2}(x^2-2x+1)dx       ##mosaicCal
 F&lt;-antiD(x^2-2*x+1 ~ x)
 F(2)-F(1)
 ## [1] 0.3333333</code></pre>
