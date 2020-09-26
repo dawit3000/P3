@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on R Stories</title>
@@ -5,11 +6,7 @@
     <description>Recent content in Posts on R Stories</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-        <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Elementary Mathematics using R</title>
       <link>/2020/09/20/elementary-mathematics-using-r/</link>
@@ -74,8 +71,7 @@ F(2)-F(1)
 ## [1] 0.3333333&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;(DRAFT=TRUE)&lt;/p&gt;
 &lt;/div&gt;
-
-      </description>
+</description>
     </item>
     
     <item>
@@ -884,8 +880,7 @@ Return
 &lt;p&gt;&lt;code&gt;[4]&lt;/code&gt; S. Nations, C. Grove, et al., &lt;em&gt;A History of the United States in Five Crashes: Stock Market Meltdowns That
 Defined a Nation, &lt;/em&gt;William Morrow (Publisher); 1st Edition, June 13, 2017.&lt;/p&gt;
 &lt;/div&gt;
-
-      </description>
+</description>
     </item>
     
     <item>
@@ -917,8 +912,7 @@ the name of the theme. For example, the default them is `yihui/hugo-lithium’.&
 &lt;p&gt;I carefully followed the steps in &lt;a href=&#34;https://www.youtube.com/watch?v=OG_i6WzRvL4&#34;&gt;this youtube video&lt;/a&gt;, and found it helpful the first time. Problems will come when you start executing. As you try over several themes, your R crashes or freezes several times, your Git button will sometimes disappear from your Project/RStudio, just to mention a few of the problems that may try to discourage you from continuing. So, what are you going to do when these kinds of troubles with building your first website continue to surface? Quit?&lt;/p&gt;
 &lt;p&gt;There are plenty of resourses that will help you complete your website. So, as I continue to write this, I will concentrate on the problems I encountered and resolved.&lt;/p&gt;
 &lt;/div&gt;
-
-      </description>
+</description>
     </item>
     
   </channel>
