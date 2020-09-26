@@ -16,9 +16,9 @@ rssLimit = 10
 [[menu.main]]
     name = "R-bloggers"
     url = "https://www.r-bloggers.com"
-[menu.main]]
+[[menu.main]]
     name = "PYTHON-BLOGGERS"
-    url = "https://python-bloggers.com/"
+    url = "https://python-bloggers.com"
 [[menu.main]]
     name = "Webmaster (@LinkedIn)"
     url = "https://www.linkedin.com/in/dawit-aberra-11267b78"
