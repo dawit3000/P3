@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R Stories</title>
-    <link>/</link>
+    <link>https://rstories.netlify.app/</link>
     <description>Recent content on R Stories</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://rstories.netlify.app/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Elementary Mathematics using R</title>
-      <link>/2020/09/20/elementary-mathematics-using-r/</link>
+      <link>https://rstories.netlify.app/2020/09/20/elementary-mathematics-using-r/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/09/20/elementary-mathematics-using-r/</guid>
+      <guid>https://rstories.netlify.app/2020/09/20/elementary-mathematics-using-r/</guid>
       <description>
 
 
@@ -38,12 +38,12 @@ g(2)
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
 ## Plot the function y=3x^2-x-2 on the interval [-10, 10]
 plotFun(3*x^2 -2*x +1 ~x, x.lim=range(-10,10) )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/math_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rstories.netlify.app/post/math_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
 ##Plot the function y=3x^2-x-2 on the interval [-10, 10] 
 ##same problem as before but using base R, not the Mosaic package
 curve(3*x^2 -2*x +1, -10, 10)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/math_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rstories.netlify.app/post/math_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
 ## Plot the function y=3x^2-x-2 on the interval [-10, 10]. 
 ## Use ggplot2
@@ -52,7 +52,7 @@ eq = function(x){3*x^2 -2*x +1}
 g&amp;lt;-ggplot(data.frame(x=c(-10, 10)), aes(x=x))
 g&amp;lt;-g+ stat_function(fun=eq)
 g&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/math_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rstories.netlify.app/post/math_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
 ## Solve the equation x^2 +x -6=0 for x.
 findZeros(x^2 +x -6 ~ x,x.lim=range(-Inf, Inf))
@@ -76,13 +76,13 @@ F(2)-F(1)
     
     <item>
       <title>Periodic and Average Periodic Returns of Financial Portfolios using R</title>
-      <link>/2020/09/20/periodic-and-average-periodic-returns-of-financial-portfolios-using-r/</link>
+      <link>https://rstories.netlify.app/2020/09/20/periodic-and-average-periodic-returns-of-financial-portfolios-using-r/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/09/20/periodic-and-average-periodic-returns-of-financial-portfolios-using-r/</guid>
+      <guid>https://rstories.netlify.app/2020/09/20/periodic-and-average-periodic-returns-of-financial-portfolios-using-r/</guid>
       <description>
-&lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://rstories.netlify.app/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://rstories.netlify.app/rmarkdown-libs/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
 
 
 &lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
@@ -709,7 +709,7 @@ g&amp;lt;-g+labs(title=paste(&amp;quot;Monthly % Returns of&amp;quot;, symbolnam
 g&amp;lt;-g+geom_text(aes(label = paste(round(Return*100,1), &amp;quot;%&amp;quot;), vjust = ifelse(Return &amp;gt;= 0, -0.1, 1.1)), size=3.5)  
 g&amp;lt;-g+scale_y_continuous(&amp;quot;Returns in Percentage&amp;quot;, labels = percent_format(),expand = expansion(mult = c(0.2, 0.2))) 
 g&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-09-20-r-rmarkdown_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;864&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rstories.netlify.app/post/2020-09-20-r-rmarkdown_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;864&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;If we are interested in a separate plot for the average monthly return of each month (from 1927 to the present day), we can select the last 12 rows of &lt;code&gt;tb&lt;/code&gt; and use the same code. We also need to adjust the title and labels of the axes.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Plot using ggplot2 
 library(ggplot2)
@@ -721,7 +721,7 @@ g&amp;lt;-g+labs(title=paste(&amp;quot;Average Monthly % Return of&amp;quot;, sy
 g&amp;lt;-g+geom_text(aes(label = paste(round(Return*100,1), &amp;quot;%&amp;quot;), vjust = ifelse(Return &amp;gt;= 0, -0.1, 1.1)), size=3.5)  
 g&amp;lt;-g+scale_y_continuous(&amp;quot;Average (Mean) Monthly Return&amp;quot;, labels = percent_format(),expand = expansion(mult = c(0.2, 0.2))) 
 g&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-09-20-r-rmarkdown_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rstories.netlify.app/post/2020-09-20-r-rmarkdown_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;summarizing-other-interesting-tales&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Summarizing other interesting tales&lt;/h2&gt;
@@ -885,10 +885,10 @@ Defined a Nation, &lt;/em&gt;William Morrow (Publisher); 1st Edition, June 13, 2
     
     <item>
       <title>RMarkdown &#43; Github &#43;Hugo &#43; Blogdown &#43;  Netlify: Develope your own blogging site</title>
-      <link>/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</link>
+      <link>https://rstories.netlify.app/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</link>
       <pubDate>Sun, 19 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</guid>
+      <guid>https://rstories.netlify.app/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</guid>
       <description>
 
 
