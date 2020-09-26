@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>regression on R Stories</title>
-    <link>https://rstories.netlify.app/tags/regression/</link>
+    <link>/tags/regression/</link>
     <description>Recent content in regression on R Stories</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://rstories.netlify.app/tags/regression/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/regression/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RMarkdown &#43; Github &#43;Hugo &#43; Blogdown &#43;  Netlify: Develope your own blogging site</title>
-      <link>https://rstories.netlify.app/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</link>
+      <link>/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</link>
       <pubDate>Sun, 19 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://rstories.netlify.app/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</guid>
+      <guid>/2020/07/19/rmarkdown-github-hugo-blogdown-netlify-develope-your-own-blogging-site/</guid>
       <description>The PlanIf you are interested in building your own website where you can sometimes blog and link your blogs with other famous blogging sites such as R-bloggers and PYTHON-BLOGGERS, you will be very familiar with Blogdown, Hugo Themes, Github and Netlify. If you, like me, are familiar with R/RStudio and a feature in RStudio called R Markdown, which is mostly used for type-setting your code loaded works with expected outputs in file extensions like .</description>
     </item>
     
