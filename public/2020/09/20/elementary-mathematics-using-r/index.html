@@ -86,28 +86,26 @@
 require(mosaic)
 require(mosaicCalc)</code></pre>
 <pre class="r"><code>
-## Given g(x)=3*x^2 -2*x +1, find g(2). 
-g&lt;-makeFun(3*x^2 -2*x +1 ~ x)
-g(2)
-## [1] 9</code></pre>
-<pre class="r"><code>
-## Given g(x)=3*x^2 -2*x +1, find g(2) (same probem as before 
-## but using base R, not the Mosaic package)
+## Given g(x)=3*x^2 -2*x +1, find g(2)  #base R, that is,no extra package is used.
 g &lt;- function(x){3*x^2 -2*x +1}
 g(2)
 ## [1] 9</code></pre>
 <pre class="r"><code>
-## Plot the function y=3x^2-x-2 on the interval [-10, 10]
-plotFun(3*x^2 -2*x +1 ~x, x.lim=range(-10,10) )</code></pre>
+## Given g(x)=3*x^2 -2*x +1, find g(2)  ##mosaic
+g&lt;-makeFun(3*x^2 -2*x +1 ~ x)
+g(2)
+## [1] 9</code></pre>
+<pre class="r"><code>
+##Plot the function y=3x^2-x-2 on the interval [-10, 10]  ##base R
+
+curve(3*x^2 -2*x +1, -10, 10)</code></pre>
 <p><img src="/post/math_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <pre class="r"><code>
-##Plot the function y=3x^2-x-2 on the interval [-10, 10] 
-##same problem as before but using base R, not the Mosaic package
-curve(3*x^2 -2*x +1, -10, 10)</code></pre>
+## Plot the function y=3x^2-x-2 on the interval [-10, 10]  ##moasaic
+plotFun(3*x^2 -2*x +1 ~x, x.lim=range(-10,10) )</code></pre>
 <p><img src="/post/math_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre class="r"><code>
-## Plot the function y=3x^2-x-2 on the interval [-10, 10]. 
-## Use ggplot2
+## Plot the function y=3x^2-x-2 on the interval [-10, 10].  ##ggplot2
 library(&quot;ggplot2&quot;)
 eq = function(x){3*x^2 -2*x +1}
 g&lt;-ggplot(data.frame(x=c(-10, 10)), aes(x=x))
