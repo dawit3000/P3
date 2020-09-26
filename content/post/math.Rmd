@@ -10,8 +10,8 @@ tags: ["R Markdown", "plot", "R"]
 knitr::opts_chunk$set(collapse = TRUE)
 ```
 
-## Tutorial (draft)
-This is a compilation of basic codes for doing elementary mathematic (college algebra, calculus)
+## The basics
+This is a compilation of basic codes for doing elementary mathematics (college algebra, calculus)
 
 The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage and other software.  However, you can also do some math using R with the convenience of RStudio and R Markdown.
 
@@ -106,8 +106,8 @@ findZeros(x^2 +x -6 ~ x,x.lim=range(-Inf, Inf))
 
 ```{r echo=T, message=F, warning=F}
 
-## F(x)= 3*x^2 -2*x +1, find F'(2)  (derivative of F at x=2)
-g<- D(x^2 -2 ~ x)
+## Given F(x)= 3*x^2 - 2*x +1, find F'(2)  (derivative of F at x=2)
+g<- D(3*x^2 -2*x + 1 ~ x)
 g(2)
 
 ```
@@ -124,5 +124,5 @@ F(2)-F(1)
 
 ```
 
-(DRAFT=TRUE)
+(DRAFT=TRUE; will be updated)
 
