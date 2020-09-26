@@ -20,6 +20,9 @@ rssLimit = 10
     name = "PYTHON-BLOGGERS"
     url = "https://python-bloggers.com"
 [[menu.main]]
+    name = "Simplystats"
+    url = "https://simplystatistics.org"
+[[menu.main]]
     name = "Webmaster (@LinkedIn)"
     url = "https://www.linkedin.com/in/dawit-aberra-11267b78"
 [params]
