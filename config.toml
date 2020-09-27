@@ -25,7 +25,9 @@ rssLimit = 10
 [[menu.main]]
     name = "Webmaster (@LinkedIn)"
     url = "https://www.linkedin.com/in/dawit-aberra-11267b78"
+
 [params]
+    owner = "Dawit Aberra"
     description = "A website built through Hugo and blogdown."
 
     # options for highlight.js (version, additional languages, and theme)
