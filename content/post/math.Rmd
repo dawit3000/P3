@@ -118,7 +118,7 @@ g(2)
 
 ## Evaluate the definite integral \int_{-1}^{2}(x^2-2x+1)dx       ##mosaicCal
 F<-antiD(x^2-2*x+1 ~ x)
-F(2)-F(1)
+F(2)-F(-1)
 
 ```
 
