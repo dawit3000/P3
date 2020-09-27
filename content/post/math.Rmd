@@ -92,7 +92,7 @@ findZeros(x^2 +x -6 ~ x, x.lim=range(-Inf, Inf))
 ```{r}
 ## Solve a system of linear equatiioms
 ##   solve the system:  2x + 3y = 5 
-##                      3x - y = 7   for x and y. 
+##                      5x - y = 7   for x and y. 
 A<-matrix(c(2,3,5,-1), nrow=2, ncol=2, byrow=TRUE) ## see ?matrix
 b<-matrix(c(5,7), nrow=2, ncol=1, byrow=TRUE)
 solve(A,b)
