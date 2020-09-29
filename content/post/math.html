@@ -58,6 +58,12 @@ A&lt;-matrix(c(2,3,5,-1), nrow=2, ncol=2, byrow=TRUE) ## see ?matrix
 b&lt;-matrix(c(5,7), nrow=2, ncol=1, byrow=TRUE)
 solve(A,b)
 </code></pre>
+<pre class="r"><code>## Find the derivative of the function f(x)= 2x^3+3x^2 +2x -5sin^2(x) +ln(x)      ##mosaicCal
+
+D(2*x^3 + 3*x^2 +2*x - 5*sin(x)^2 + log(x) ~ x)
+## function (x) 
+## 2 * (3 * x^2) + 3 * (2 * x) + 2 - 5 * (2 * (cos(x) * sin(x))) + 
+##     1/x</code></pre>
 <pre class="r"><code>## Find the derivative of the function f(x)= 2x^3+3x^2 +2x -5sin^2(x) +ln(x)      ## &quot;calculus&quot; package
 derivative(f = &quot;2*x^3 + 3*x^2 +2*x - 5*sin(x)^2 + log(x)&quot;, var = &quot;x&quot;)
 ##                                          [,1]                                                                 
