@@ -37,11 +37,11 @@ g(2)
 ##Plot the function y=3x^2-x-2 on the interval [-10, 10]  ## base R
 
 curve(3*x^2 -2*x +1, -10, 10)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;math_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/math_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
 ## Plot the function y=3x^2-x-2 on the interval [-10, 10]  ##moasaic
 plotFun(3*x^2 -2*x +1 ~x, x.lim=range(-10,10) )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;math_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/math_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
 ## Plot the function y=3x^2-x-2 on the interval [-10, 10].  ##ggplot2
 library(&amp;quot;ggplot2&amp;quot;)
@@ -49,7 +49,7 @@ eq = function(x){3*x^2 -2*x +1}
 g&amp;lt;-ggplot(data.frame(x=c(-10, 10)), aes(x=x))
 g&amp;lt;-g+ stat_function(fun=eq)
 g&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;math_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/math_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
 ## Solve the equation x^2 +x -6=0 for x.
 findZeros(x^2 +x -6 ~ x, x.lim=range(-Inf, Inf))
