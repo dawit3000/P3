@@ -25,6 +25,7 @@ The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage 
 ```{r echo=T, message=F, warning=F}
 library(mosaic)
 library(mosaicCalc)
+library(calculus)
 
 ```
 
@@ -32,7 +33,7 @@ library(mosaicCalc)
 
 ```{r echo=T, message=F, warning=F}
 
-## Given g(x)=3*x^2 -2*x +1, find g(2)  #base R, that is,no extra package is used.
+## Given g(x)=3*x^2 -2*x +1, find g(2)  ##base R, that is,no extra package is used.
 g <- function(x){3*x^2 -2*x +1}
 g(2)
 ```
@@ -50,7 +51,7 @@ g(2)
 
 ```{r echo=T, message=F, warning=F}
 
-##Plot the function y=3x^2-x-2 on the interval [-10, 10]  ##base R
+##Plot the function y=3x^2-x-2 on the interval [-10, 10]  ## base R
 
 curve(3*x^2 -2*x +1, -10, 10)
 
@@ -101,8 +102,8 @@ solve(A,b)
 
 ```{r echo=T, message=F, warning=F}
 ## Find the derivative of the function f(x)= 2x^3+3x^2 +2x -5sin^2(x) +ln(x)      ## "calculus" package
-library(calculus)
 derivative(f = "2*x^3 + 3*x^2 +2*x - 5*sin(x)^2 + log(x)", var = "x")
+
 ```
 
 ```{r echo=T, message=F, warning=F}

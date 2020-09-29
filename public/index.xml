@@ -21,9 +21,10 @@
 &lt;p&gt;The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage and other software. However, you can also do some math using R with the convenience of RStudio and R Markdown.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# install.packages(&amp;quot;mosaic&amp;quot;, &amp;quot;mosaicCalc&amp;quot;, &amp;quot;calculus&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(mosaic)
-library(mosaicCalc)&lt;/code&gt;&lt;/pre&gt;
+library(mosaicCalc)
+library(calculus)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
-## Given g(x)=3*x^2 -2*x +1, find g(2)  #base R, that is,no extra package is used.
+## Given g(x)=3*x^2 -2*x +1, find g(2)  ##base R, that is,no extra package is used.
 g &amp;lt;- function(x){3*x^2 -2*x +1}
 g(2)
 ## [1] 9&lt;/code&gt;&lt;/pre&gt;
@@ -33,14 +34,14 @@ g&amp;lt;-makeFun(3*x^2 -2*x +1 ~ x)
 g(2)
 ## [1] 9&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
-##Plot the function y=3x^2-x-2 on the interval [-10, 10]  ##base R
+##Plot the function y=3x^2-x-2 on the interval [-10, 10]  ## base R
 
 curve(3*x^2 -2*x +1, -10, 10)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/math_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;math_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
 ## Plot the function y=3x^2-x-2 on the interval [-10, 10]  ##moasaic
 plotFun(3*x^2 -2*x +1 ~x, x.lim=range(-10,10) )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/math_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;math_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
 ## Plot the function y=3x^2-x-2 on the interval [-10, 10].  ##ggplot2
 library(&amp;quot;ggplot2&amp;quot;)
@@ -48,7 +49,7 @@ eq = function(x){3*x^2 -2*x +1}
 g&amp;lt;-ggplot(data.frame(x=c(-10, 10)), aes(x=x))
 g&amp;lt;-g+ stat_function(fun=eq)
 g&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/math_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;math_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
 ## Solve the equation x^2 +x -6=0 for x.
 findZeros(x^2 +x -6 ~ x, x.lim=range(-Inf, Inf))
@@ -63,7 +64,6 @@ b&amp;lt;-matrix(c(5,7), nrow=2, ncol=1, byrow=TRUE)
 solve(A,b)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Find the derivative of the function f(x)= 2x^3+3x^2 +2x -5sin^2(x) +ln(x)      ## &amp;quot;calculus&amp;quot; package
-library(calculus)
 derivative(f = &amp;quot;2*x^3 + 3*x^2 +2*x - 5*sin(x)^2 + log(x)&amp;quot;, var = &amp;quot;x&amp;quot;)
 ##                                          [,1]                                                                 
 ## 2*x^3 + 3*x^2 +2*x - 5*sin(x)^2 + log(x) &amp;quot;2 * (3 * x^2) + 3 * (2 * x) + 2 - 5 * (2 * (cos(x) * sin(x))) + 1/x&amp;quot;&lt;/code&gt;&lt;/pre&gt;

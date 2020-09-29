@@ -85,9 +85,10 @@
 <p>The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage and other software. However, you can also do some math using R with the convenience of RStudio and R Markdown.</p>
 <pre class="r"><code># install.packages(&quot;mosaic&quot;, &quot;mosaicCalc&quot;, &quot;calculus&quot;)</code></pre>
 <pre class="r"><code>library(mosaic)
-library(mosaicCalc)</code></pre>
+library(mosaicCalc)
+library(calculus)</code></pre>
 <pre class="r"><code>
-## Given g(x)=3*x^2 -2*x +1, find g(2)  #base R, that is,no extra package is used.
+## Given g(x)=3*x^2 -2*x +1, find g(2)  ##base R, that is,no extra package is used.
 g &lt;- function(x){3*x^2 -2*x +1}
 g(2)
 ## [1] 9</code></pre>
@@ -97,14 +98,14 @@ g&lt;-makeFun(3*x^2 -2*x +1 ~ x)
 g(2)
 ## [1] 9</code></pre>
 <pre class="r"><code>
-##Plot the function y=3x^2-x-2 on the interval [-10, 10]  ##base R
+##Plot the function y=3x^2-x-2 on the interval [-10, 10]  ## base R
 
 curve(3*x^2 -2*x +1, -10, 10)</code></pre>
-<p><img src="/post/math_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="math_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <pre class="r"><code>
 ## Plot the function y=3x^2-x-2 on the interval [-10, 10]  ##moasaic
 plotFun(3*x^2 -2*x +1 ~x, x.lim=range(-10,10) )</code></pre>
-<p><img src="/post/math_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="math_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre class="r"><code>
 ## Plot the function y=3x^2-x-2 on the interval [-10, 10].  ##ggplot2
 library(&quot;ggplot2&quot;)
@@ -112,7 +113,7 @@ eq = function(x){3*x^2 -2*x +1}
 g&lt;-ggplot(data.frame(x=c(-10, 10)), aes(x=x))
 g&lt;-g+ stat_function(fun=eq)
 g</code></pre>
-<p><img src="/post/math_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="math_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code>
 ## Solve the equation x^2 +x -6=0 for x.
 findZeros(x^2 +x -6 ~ x, x.lim=range(-Inf, Inf))
@@ -127,7 +128,6 @@ b&lt;-matrix(c(5,7), nrow=2, ncol=1, byrow=TRUE)
 solve(A,b)
 </code></pre>
 <pre class="r"><code>## Find the derivative of the function f(x)= 2x^3+3x^2 +2x -5sin^2(x) +ln(x)      ## &quot;calculus&quot; package
-library(calculus)
 derivative(f = &quot;2*x^3 + 3*x^2 +2*x - 5*sin(x)^2 + log(x)&quot;, var = &quot;x&quot;)
 ##                                          [,1]                                                                 
 ## 2*x^3 + 3*x^2 +2*x - 5*sin(x)^2 + log(x) &quot;2 * (3 * x^2) + 3 * (2 * x) + 2 - 5 * (2 * (cos(x) * sin(x))) + 1/x&quot;</code></pre>
