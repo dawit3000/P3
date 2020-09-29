@@ -15,7 +15,7 @@
       <guid>/2020/09/20/elementary-mathematics-using-r/</guid>
       <description>The basicsThis is a compilation of basic codes for doing elementary mathematics (college algebra, calculus)
 The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage and other software. However, you can also do some math using R with the convenience of RStudio and R Markdown.
-# install.packages(&amp;quot;mosaic&amp;quot;, &amp;quot;mosaicCalc&amp;quot;, &amp;quot;calculus&amp;quot;)library(mosaic)library(mosaicCalc)library(calculus)## Given g(x)=3*x^2 -2*x +1, find g(2) ##base R, that is,no extra package is used.</description>
+# install.packages(&amp;quot;mosaic&amp;quot;, &amp;quot;mosaicCalc&amp;quot;, &amp;quot;calculus&amp;quot;)## Required librarieslibrary(mosaic)library(mosaicCalc)library(calculus)library(&amp;quot;ggplot2&amp;quot;)## Given g(x)=3*x^2 -2*x +1, find g(2) ##base R, that is,no extra package is used.</description>
     </item>
     
     <item>
