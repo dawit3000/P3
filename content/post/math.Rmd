@@ -17,7 +17,7 @@ The best software for doing mathematics may be Mathematica, Maple, MatLab, Sage 
 
 
 ```{r}
-# install.packages("mosaic", "mosaicCalc")
+# install.packages("mosaic", "mosaicCalc", "calculus")
 ```
 
 
@@ -99,8 +99,14 @@ solve(A,b)
 
 ```
 
+```{r}
+## Find the derivative of the function f(x)= 2x^3+3x^2 +2x +9-5sin^(x) +ln(x)      ## "calculus" package
+library(calculus)
+derivative(f = "2*x^3 + 3*x^2 +2*x +9-5*sin(x)^2", var = "x")
 
+```
 
+derivative(f = "2x^3+3x^2 +2x +9-5sin^(x)+ln(x)", var = "x")
 
 ```{r echo=T, message=F, warning=F}
 
@@ -121,6 +127,23 @@ F<-antiD(x^2-2*x+1 ~ x)
 F(2)-F(-1)
 
 ```
+
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 (DRAFT=TRUE; will be updated)
 
