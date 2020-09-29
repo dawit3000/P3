@@ -89,7 +89,7 @@ findZeros(x^2 +x -6 ~ x, x.lim=range(-Inf, Inf))
 
 ```
 
-```{r}
+```{recho=T, message=F, warning=F }
 ## Solve a system of linear equatiioms
 ##   solve the system:  2x + 3y = 5 
 ##                      5x - y = 7   for x and y. 
@@ -99,14 +99,13 @@ solve(A,b)
 
 ```
 
-```{r}
-## Find the derivative of the function f(x)= 2x^3+3x^2 +2x +9-5sin^(x) +ln(x)      ## "calculus" package
+```{r echo=T, message=F, warning=F}
+## Find the derivative of the function f(x)= 2x^3+3x^2 +2x -5sin^2(x) +ln(x)      ## "calculus" package
 library(calculus)
-derivative(f = "2*x^3 + 3*x^2 +2*x +9-5*sin(x)^2", var = "x")
-
+derivative(f = "2*x^3 + 3*x^2 +2*x - 5*sin(x)^2 + log(x)", var = "x")
 ```
 
-derivative(f = "2x^3+3x^2 +2x +9-5sin^(x)+ln(x)", var = "x")
+
 
 ```{r echo=T, message=F, warning=F}
 
