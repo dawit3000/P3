@@ -105,6 +105,14 @@ library(calculus)
 derivative(f = "2*x^3 + 3*x^2 +2*x - 5*sin(x)^2 + log(x)", var = "x")
 ```
 
+```{r echo=T, message=F, warning=F}
+
+## Given F(x)= 3*x^2 - 2*x +1, find F'(2)  (derivative of F at x=2)  ##calculus
+derivative(f = "3*x^2 - 2*x +1", var = c("x" = 2))
+
+```
+
+
 
 
 ```{r echo=T, message=F, warning=F}

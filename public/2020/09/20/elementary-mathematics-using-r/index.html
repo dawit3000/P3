@@ -132,6 +132,11 @@ derivative(f = &quot;2*x^3 + 3*x^2 +2*x - 5*sin(x)^2 + log(x)&quot;, var = &quot
 ##                                          [,1]                                                                 
 ## 2*x^3 + 3*x^2 +2*x - 5*sin(x)^2 + log(x) &quot;2 * (3 * x^2) + 3 * (2 * x) + 2 - 5 * (2 * (cos(x) * sin(x))) + 1/x&quot;</code></pre>
 <pre class="r"><code>
+## Given F(x)= 3*x^2 - 2*x +1, find F&#39;(2)  (derivative of F at x=2)  ##calculus
+derivative(f = &quot;3*x^2 - 2*x +1&quot;, var = c(&quot;x&quot; = 2))
+##      [,1]
+## [1,]   10</code></pre>
+<pre class="r"><code>
 ## Given F(x)= 3*x^2 - 2*x +1, find F&#39;(2)  (derivative of F at x=2)  ##mosaicCal
 g&lt;- D(3*x^2 -2*x + 1 ~ x)
 g(2)
