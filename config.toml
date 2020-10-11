@@ -27,7 +27,7 @@ rssLimit = 10
     url = "https://www.linkedin.com/in/dawit-aberra-11267b78"
 
 [params]
-    owner = "Dawit Aberra"
+    owner = "Dawit Aberra - Professor of Mathematics, Fort Valley State University, Fort Valley, GA-31030"
     description = "A website built through Hugo and blogdown."
 
     # options for highlight.js (version, additional languages, and theme)
