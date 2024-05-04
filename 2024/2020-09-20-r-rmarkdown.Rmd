@@ -10,7 +10,7 @@ tags: ["R Markdown", "plot", "regression"]
 knitr::opts_chunk$set(collapse = TRUE)
 ```
 
-## Introduction
+## Introduction to 2024
 
 Institutional and Hedge Fund managers return from summer vacation and adjust their financial portfolios at the end of each summer, causing a selloff pressure in the market. September is considered a bad month for the Bulls [1] 
 
