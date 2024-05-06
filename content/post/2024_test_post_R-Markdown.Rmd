@@ -7,8 +7,8 @@ categories: ["R"]
 ---
 
 ```{r}
-require(knitr) # required for knitting from rmd to md
-require(markdown): # required for md to html
+require(knitr): # required for knitting from rmd to md
+require(markdown) # required for md to html
 ```
 
 
