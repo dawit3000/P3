@@ -2,8 +2,9 @@
 title: Trial Post 2024
 author: Dawit Aberra
 date: '2024-05-24'
-categories:
-  - R
+output:
+  md_document:
+    variant: markdown_github
 ---
 
 
