@@ -3,12 +3,14 @@ title: "Just a test again a test 7 post for 2024 (will be deleted)"
 author: "Dawit Aberra"
 date: 2024-05-24
 categories: ["R"]
-tags: ["R Markdown", "plot", "regression"]
+
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
+```{r}
+require(knitr) # required for knitting from rmd to md
+require(markdown): # required for md to html
 ```
+
 
 ## Introduction to 2024
 
