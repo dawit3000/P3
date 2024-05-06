@@ -1,11 +1,11 @@
 ---
-title: Trial Post 2024
-author: Dawit Aberra
-date: '2024-05-24'
-categories:
-  - R
+title: ''
+author: abe
+date: '2024-05-06'
+slug: ''
+categories: []
+tags: []
 ---
-
 
 
 

@@ -1,9 +1,9 @@
 ---
-title: "Just a test 111 again a test 7 post for 2024 (will be deleted)"
+title: "Just a test a test of 2024 (will be deleted)"
 author: "Dawit Aberra"
 date: 2024-05-24
 categories: ["R"]
-output: md_document
+##output: md_document
 ---
 
 
