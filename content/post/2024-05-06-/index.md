@@ -2,9 +2,9 @@
 title: ''
 author: abe
 date: '2024-05-06'
-slug: ''
-categories: []
-tags: []
+output:
+  md_document:
+    variant: markdown_github
 ---
 
 
