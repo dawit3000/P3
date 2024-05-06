@@ -25,13 +25,6 @@ We will then outline a simple way to visualize or summarize monthly returns as w
 
 We start by installing the R packages that  will be needed to produce libraries later. For more information about one of the key packages used here, the `tidyquant` package,  see [2]. 
 
-
-```{r echo=T, results='hide', message=F, warning=F}
-## Load Packages for the libraries that will be needed
-##install.packages(c("tidyquant","ggplot2","RColorBrewer","kableExtra"))
-
-```
-
 ## Getting and Preparing Data
 
 We will get the data for the S&P 500 Index, symbol = ^GSPC,  from Yahoo! Finance. We will then prepare the data for visualization and/or Summarization  of results as needed. 
