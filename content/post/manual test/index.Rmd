@@ -36,5 +36,5 @@ You can also embed plots, for example:
 plot(pressure)
 ```
 
-
+## blogdown instructions  https://slides.yihui.org/2022-useR-blogdown.html#4
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
