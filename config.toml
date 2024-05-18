@@ -12,7 +12,7 @@ rssLimit = 10
 
 [[menu.main]]
     name = "About"
-    url = "/about/"
+    url = "public/about/"
 [[menu.main]]
     name = "R-bloggers"
     url = "https://www.r-bloggers.com"
