@@ -1,0 +1,14 @@
+---
+title: "index"
+author: "D. Aberra"
+date: "2024-05-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Stories
+
+This blog site is maintained by Dawit Aberra. For question or comments, contact at aberrad@fvsu.edu
