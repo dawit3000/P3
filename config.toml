@@ -23,7 +23,7 @@ rssLimit = 10
     name = "Simplystats"
     url = "https://simplystatistics.org"
 [[menu.main]]
-    name = "Webmaster (@LinkedIn)"
+    name = "Webmaster@LinkedIn"
     url = "https://www.linkedin.com/in/dawit-aberra-11267b78"
 
 [params]
@@ -44,7 +44,7 @@ rssLimit = 10
 
     [params.logo]
     url = "logo2.png"
-    width = 50
-    height = 50
+    width = 100
+    height = 100
     alt = "Logo"
 
