@@ -11,4 +11,4 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Stories
 
-This blog site is maintained by Dawit Aberra. For question or comments, write email:  aberrad@fvsu.edu.
+This blog site is maintained by Dawit Aberra. For question or comments, write email:  dawit3000@hotmail.com
