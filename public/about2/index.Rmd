@@ -9,6 +9,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Stories
+## R-STORIES (BLOGGED)
 
-This blog site is maintained by Dawit Aberra. For question or comments, write email:  dawit3000@hotmail.com
+Questions or comments about this website may be sent to:  dawit3000@hotmail.com
