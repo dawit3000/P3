@@ -42,24 +42,24 @@ for(i in 1:length(original_names))
   }
 
 head(schedule)
-##          INSTRUCTOR SUBJ NUMB ENRLD HRS
-## 1         Lu, Vivek ACCT 2101    34   3
-## 2   Raiburn, Walter ACCT 2102    33   3
-## 3         Lu, Vivek ACCT 3113     7   3
-## 4   Raiburn, Walter ACCT 3133    10   3
-## 5  Romero, Nicholas ACCT 4113     9   3
-## 6 Atencio, Mitchell AENT 2833    27   3</code></pre>
+##         INSTRUCTOR SUBJ NUMB ENRLD HRS
+## 1    Ortiz, Arturo ACCT 2101    34   3
+## 2 Croteau, Phillip ACCT 2102    33   3
+## 3    Ortiz, Arturo ACCT 3113     7   3
+## 4 Croteau, Phillip ACCT 3133    10   3
+## 5 Jutting, Mamadou ACCT 4113     9   3
+## 6    Barker, Shane AENT 2833    27   3</code></pre>
 <p>Since instructors may teach more than one class, their names may appear in the above table more than once under the variable ‘INSTRUCTOR’. We will need the variables <code>INSTRUCTOR</code> (instructor name), <code>ENRLD</code> (number of students enrolled in the class) and <code>HRS</code> (credit hours). Let us also create here a list of the unique instructors, <code>INSTR_i,  i=1,2,3, ...,</code> for future use.</p>
 <pre class="r"><code>INSTR &lt;-unique(schedule[c(&quot;INSTRUCTOR&quot;)])
 INSTR &lt;- arrange(INSTR, INSTRUCTOR)
 head(INSTR)
-##           INSTRUCTOR
-## 1 Alcantar, Lawrence
-## 2     Andrade, Karen
-## 3   Archuleta, Tenai
-## 4     Arguello, Lupe
-## 5    Ashworth, Daris
-## 6  Atencio, Mitchell</code></pre>
+##        INSTRUCTOR
+## 1  Abraham, Tasia
+## 2  Alcon, Otoniel
+## 3     Allen, Clay
+## 4  Ambriz, Fabian
+## 5   Araujo, Jesus
+## 6 Babcock, Angela</code></pre>
 </div>
 <div id="guidelines-of-ideal-college-for-ol_comp-and-oe_comp" class="section level2">
 <h2>Guidelines of <code>Ideal College</code> for <code>OL_COMP</code> and <code>OE_COMP</code>:</h2>
@@ -115,25 +115,25 @@ df[is.na(df)]&lt;-0
 df&lt;-subset(df, df$TOTAL_COMP !=0) # keep only instructors who are compensated
 
 head(df, n=20)
-##                 INSTRUCTOR QOHRS OL_COMP OE_COMP TOTAL_COMP
-## 1       Alcantar, Lawrence     0       0  500.00     500.00
-## 2           Andrade, Karen     1     700  500.00    1200.00
-## 4           Arguello, Lupe     2    2000 1000.00    3000.00
-## 7            Baker, Xavier     0       0  100.00     100.00
-## 8            Barnes, Kylie     0       0 1500.00    1500.00
-## 9       Betancourt, Joshua     0       0 1333.33    1333.33
-## 13        Brown, Geovontai     0       0  300.00     300.00
-## 15           Canino, Peter     0       0 2000.00    2000.00
-## 17      Cannell, Christian     0       0 1000.00    1000.00
-## 18 Castro Molina, Geovanna     0       0 1733.33    1733.33
-## 20         Chuong, Jessica     0       0  700.00     700.00
-## 22       Cochran, Savannah     0       0  300.00     300.00
-## 23             Colin, Olie     0       0  666.67     666.67
-## 24        Compton, Susheel     0       0  200.00     200.00
-## 25             Coody, Mary     0       0 1000.00    1000.00
-## 26         Cooter, Quinton     0       0  766.66     766.66
-## 28        Culberson, Kayla     3    3000  600.00    3600.00
-## 30        Dallum, Sheyenne     3    1500 2600.00    4100.00
-## 32         Declaw, Vincent     0       0 3100.00    3100.00
-## 33         Dominguez, Cruz     3    2400  700.00    3100.00</code></pre>
+##             INSTRUCTOR QOHRS OL_COMP OE_COMP TOTAL_COMP
+## 2       Alcon, Otoniel     0       0 2133.34    2133.34
+## 6      Babcock, Angela     0       0  500.00     500.00
+## 7          Baca, Janea     0       0 1333.33    1333.33
+## 9          Baker, John     2     600 5133.33    5733.33
+## 10     Baldwin, Lauren     0       0 1466.67    1466.67
+## 14      Bishop, Joshua     0       0 1000.00    1000.00
+## 15        Black, Kelee     0       0 2800.00    2800.00
+## 16 Bohannon-Pea, Soren     0       0  700.00     700.00
+## 17    Borasio, Jessica    15   10300 1633.33   11933.33
+## 18      Burris, Jabril     0       0  100.00     100.00
+## 21          Cano, Kara     0       0  633.33     633.33
+## 23       Castor, Laura     0       0 2800.00    2800.00
+## 26          Clark, Kit     0       0 1333.33    1333.33
+## 27    Croteau, Phillip     0       0  300.00     300.00
+## 28       Cruz, Gabriel     0       0 1733.33    1733.33
+## 37   Eckhart, Scarlett     0       0 3100.00    3100.00
+## 42       Garcia, Edgar     0       0  133.33     133.33
+## 43        Garcia, Rico     0       0 1000.00    1000.00
+## 46     Givens, Kellsie     0       0 1400.00    1400.00
+## 48         Gomez, Jose     0       0  766.66     766.66</code></pre>
 </div>
