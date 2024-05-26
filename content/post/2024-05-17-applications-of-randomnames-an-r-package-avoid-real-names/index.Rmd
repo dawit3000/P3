@@ -75,7 +75,7 @@ original_names<-unique(schedule$INSTRUCTOR)
 random_names<-randomNames(length(original_names)) #Random names to replace original names
 for(i in 1:length(original_names)) 
   {
-  schedule[schedule == schedule$INSTRUCTOR[i]]<-random_names[i]
+  schedule[schedule == original_names[i]]<-random_names[i]
   }
 head(schedule)
 
