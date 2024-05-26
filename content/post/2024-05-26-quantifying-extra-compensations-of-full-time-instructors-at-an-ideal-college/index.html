@@ -42,24 +42,24 @@ for(i in 1:length(original_names))
   }
 
 head(schedule)
-##               INSTRUCTOR SUBJ NUMB ENRLD HRS
-## 1 Archila-Lopez, Chantel ACCT 2101    34   3
-## 2           Gieser, Irma ACCT 2102    33   3
-## 3 Archila-Lopez, Chantel ACCT 3113     7   3
-## 4           Gieser, Irma ACCT 3133    10   3
-## 5        Soufiani, Jiali ACCT 4113     9   3
-## 6          Wilson, Audia AENT 2833    27   3</code></pre>
+##          INSTRUCTOR SUBJ NUMB ENRLD HRS
+## 1         Lu, Vivek ACCT 2101    34   3
+## 2   Raiburn, Walter ACCT 2102    33   3
+## 3         Lu, Vivek ACCT 3113     7   3
+## 4   Raiburn, Walter ACCT 3133    10   3
+## 5  Romero, Nicholas ACCT 4113     9   3
+## 6 Atencio, Mitchell AENT 2833    27   3</code></pre>
 <p>Since instructors may teach more than one class, their names may appear in the above table more than once under the variable ‘INSTRUCTOR’. We will need the variables <code>INSTRUCTOR</code> (instructor name), <code>ENRLD</code> (number of students enrolled in the class) and <code>HRS</code> (credit hours). Let us also create here a list of the unique instructors, <code>INSTR_i,  i=1,2,3, ...,</code> for future use.</p>
 <pre class="r"><code>INSTR &lt;-unique(schedule[c(&quot;INSTRUCTOR&quot;)])
 INSTR &lt;- arrange(INSTR, INSTRUCTOR)
 head(INSTR)
-##               INSTRUCTOR
-## 1           Agustin, Lee
-## 2      Alderete, Justice
-## 3  Alexander, Bernadette
-## 4 Archila-Lopez, Chantel
-## 5           Arnold, Abby
-## 6         Banks, Karissa</code></pre>
+##           INSTRUCTOR
+## 1 Alcantar, Lawrence
+## 2     Andrade, Karen
+## 3   Archuleta, Tenai
+## 4     Arguello, Lupe
+## 5    Ashworth, Daris
+## 6  Atencio, Mitchell</code></pre>
 </div>
 <div id="guidelines-of-ideal-college-for-ol_comp-and-oe_comp" class="section level2">
 <h2>Guidelines of <code>Ideal College</code> for <code>OL_COMP</code> and <code>OE_COMP</code>:</h2>
@@ -115,25 +115,25 @@ df[is.na(df)]&lt;-0
 df&lt;-subset(df, df$TOTAL_COMP !=0) # keep only instructors who are compensated
 
 head(df, n=20)
-##                INSTRUCTOR QOHRS OL_COMP OE_COMP TOTAL_COMP
-## 1            Agustin, Lee     0       0 3000.00    3000.00
-## 2       Alderete, Justice     0       0  700.00     700.00
-## 4  Archila-Lopez, Chantel     0       0  400.00     400.00
-## 5            Arnold, Abby     0       0 2800.00    2800.00
-## 7        Barcelona, Keith     0       0  200.00     200.00
-## 10          Batlle, Laura     0       0 2700.00    2700.00
-## 11        Bevans, Brianna     4    2500 1900.00    4400.00
-## 14      Bonath, Dominique     7    7000 1066.66    8066.66
-## 16          Bunch, Benhur     0       0 2200.00    2200.00
-## 17          Carey, Elijah     0       0  100.00     100.00
-## 19        Castellon, Trae     0       0  800.00     800.00
-## 24           Chhor, Jason     0       0  600.00     600.00
-## 26         Clark, Michael    12   10800 2933.33   13733.33
-## 27         Cline, Ardisia     0       0 1733.33    1733.33
-## 30        Coleman, Daniel     0       0  400.00     400.00
-## 32       Contreras, Shale     0       0 5600.00    5600.00
-## 33         Cordova, David     0       0  700.00     700.00
-## 34              Dahm, Thi     0       0  200.00     200.00
-## 38           Duran, Aiden     0       0 1466.67    1466.67
-## 45       Fletcher, Amelia     0       0 1333.33    1333.33</code></pre>
+##                 INSTRUCTOR QOHRS OL_COMP OE_COMP TOTAL_COMP
+## 1       Alcantar, Lawrence     0       0  500.00     500.00
+## 2           Andrade, Karen     1     700  500.00    1200.00
+## 4           Arguello, Lupe     2    2000 1000.00    3000.00
+## 7            Baker, Xavier     0       0  100.00     100.00
+## 8            Barnes, Kylie     0       0 1500.00    1500.00
+## 9       Betancourt, Joshua     0       0 1333.33    1333.33
+## 13        Brown, Geovontai     0       0  300.00     300.00
+## 15           Canino, Peter     0       0 2000.00    2000.00
+## 17      Cannell, Christian     0       0 1000.00    1000.00
+## 18 Castro Molina, Geovanna     0       0 1733.33    1733.33
+## 20         Chuong, Jessica     0       0  700.00     700.00
+## 22       Cochran, Savannah     0       0  300.00     300.00
+## 23             Colin, Olie     0       0  666.67     666.67
+## 24        Compton, Susheel     0       0  200.00     200.00
+## 25             Coody, Mary     0       0 1000.00    1000.00
+## 26         Cooter, Quinton     0       0  766.66     766.66
+## 28        Culberson, Kayla     3    3000  600.00    3600.00
+## 30        Dallum, Sheyenne     3    1500 2600.00    4100.00
+## 32         Declaw, Vincent     0       0 3100.00    3100.00
+## 33         Dominguez, Cruz     3    2400  700.00    3100.00</code></pre>
 </div>
