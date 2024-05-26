@@ -1,0 +1,120 @@
+---
+title: Quantifying extra compensations of full-time instructors at an ideal college
+  using  publicly available class schedule data and institutional guidelines for compensation.
+author: D. Aberra
+date: '2024-05-26'
+slug: quantifying-extra-compensations-of-full-time-instructors-at-an-ideal-college-using-publicly-available-class-schedule-data-and-institutional-guidelines-for-compensation
+categories:
+  - R
+tags:
+  - R
+  - R Markdown
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+In many higher education institutions in the U.S., a full-time faculty member typically receives a base salary for 9 or 10 months, disbursed in monthly installments over the academic year or the whole year. Nevertheless, within this framework, faculty may also accrue additional income through various avenues such as administrative allowances, service allowances, over-load compensations, over-enrollment compensations, summer teaching compensations, or other similar forms of remuneration. Among these, over-load compensations (`OL_COMP`) and over-enrollment compensations (`OE_COMP`) stand out as the most prevalent during academic semesters, excluding summer compensations.
+
+`OL_COMP` come into play when faculty undertake teaching responsibilities exceeding the standard credit hours mandated for full-time faculty as outlined in their contractual agreements or institutional guidelines.
+
+`OE_COMP` occur when class enrollments surpass the institution's predefined regular enrollment threshold.
+
+With the aid of the statistical software R, publicly available class schedule data, and institutional compensation guidelines, we quantify OL_COMP and OE_COMP  earned by each instructor during a semester within an exemplary higher education institution referred to as `Ideal College.`
+
+## Class schedule data from `Ideal College`.
+Listed below are examples of exemplary higher education institutions that provide publicly accessible class schedule data. A significant number of these institutions utilize software developed by Ellucian Company L.P. to generate these schedules, resulting in similarities across many datasets. However, institutions retain the autonomy to customize the display of their data, with some choosing to impose restrictions
+
++ [Lipscomb University example of class schedule](https://courseschedule.lipscomb.edu/ScheduleP2023SPRING.html?_gl=1*22p1u1*_up*MQ)
+
++ [Savannah State University example of class schedule](https://simba.savannahstate.edu/students/schedule.aspx?term=202402)
+
++ [Benedict College example of class schedule](https://benedict.edu/fall-2022-course-offerings/)
+
++ ['Ideal College' class schedule  folder](https://github.com/dawit3000/P3/blob/master/Ideal_College_Fall_2021_Schedule.csv)
+
+Let's get the class schedule data for 'Ideal College and replace original names by random names.
+
+```{r echo=T, message=F, warning=F}
+##Get data, clean a bit, avoid using real names 
+library(dplyr)
+schedule<- read.csv("https://raw.githubusercontent.com/dawit3000/P3/master/Ideal_College_Fall_2021_Schedule.csv")
+schedule<-subset(schedule,schedule$INSTRUCTOR !="" &  schedule$ENRLD > 2) ## will see later that when ENRLD is 2 or less, no compensation
+schedule<-subset(schedule, select=c("INSTRUCTOR","SUBJ", "NUMB", "ENRLD", "HRS" )) ## Choose only the columns you might need
+
+## Replace original names by random names
+library(randomNames)
+original_names<-unique(schedule$INSTRUCTOR)
+random_names<-randomNames(length(original_names)) #Random names to replace original names
+for(i in 1:length(original_names)) 
+  {
+  schedule[schedule == original_names[i]]<-random_names[i]
+  }
+
+head(schedule)
+```
+
+
+Since instructors may teach more than one class, their names may appear in the above table more than once under the variable 'INSTRUCTOR'. We will need the variables `INSTRUCTOR` (instructor name), `ENRLD` (number of students enrolled in the class) and `HRS` (credit hours). Let us also create here a list of the unique instructors,  `INSTR_i,  i=1,2,3, ...,` for future use. 
+
+```{r echo=T, message=F, warning=F}
+INSTR <-unique(schedule[c("INSTRUCTOR")])
+INSTR <- arrange(INSTR, INSTRUCTOR)
+head(INSTR)
+```
+
+
+## Guidelines of `Ideal College` for `OL_COMP` and `OE_COMP`: 
+1. The standard teaching load for a full-time Instructor at this college is 12 credit hours, with a recommended student enrollment range of 10 to 30 students per class.
+1. Classes with an enrollment (`ENRLD`) of less than 3 will not qualify for `OL_COMP`. It's advised to teach such classes within the regular load or consider cancellation.
+1. Instructors teaching more than 12 credit hours will receive `OL_COMP` for each additional credit hour if the enrollment in those extra classes is 3 or more. 
+1. For classes with normal enrollment (10 to 30 students), compensation is calculated at a rate of `$1000` per credit hour, resulting in `OL_COMP = 1000*(#_of_credit_hours).`
+1. If a class has an enrollment in the range 3 to 9 and is considered for over-load compensation, compensation will be prorated based on the 10-student minimum requirement for standard enrollment: `OL_COMP = (#_of_students/10)*1000*(#_of_credit_hours).`
+1. Classes with an enrollment exceeding 30 students will be considered over-enrolled, and instructors will be compensated for the additional students based on a prorated scale relative to the standard maximum enrollment of 30: `OE_COMP = (#_of_extra_students/30)*1000*(#_of_credit_hours).`
+1. `OL_COMP` calculations begin with the lowest-enrollment class with `ENRLD` greater than or equal to 3 and continue up until the standard load of 12 credit hours is reached.
+
+## Implementing  `OL_COMP` and `OE_COMP` guidelines of `Ideal College`
+Our approach involves iterating through each instructor (starting with `i=1`) to compute their compensation according to the guidelines. Results for each instructor will be appended to a data frame `df` using `rbind`, forming the final output. We'll calculate three key metrics for each instructor: `OL_COMP, OE_COMP, and QOHRS (qualified overload credit hours)`, providing a simplified overview of compensations.
+
+```{r echo=T, message=F, warning=F}
+library("scales")
+df<-NULL
+for(i in 1:nrow(INSTR))
+{  
+  output<-filter(schedule, grepl(INSTR[i, 1],schedule$INSTRUCTOR))
+  output<-arrange(output, desc(output$ENRLD)) # we want low ENRLD courses listed at the bottom
+  # Calculate Over-Enrolled Payment for each course and store the sum in a variable OE_COMP
+  OE_COMP_VEC<-""
+  for(j in 1:nrow(output))
+  {
+    if(output$ENRLD[j]>30){OE_COMP_VEC[j]<-round((output$ENRLD[j]-30)*(1000/30)*output$HRS[j],2)}
+  }
+  OE_COMP<-round(sum(as.numeric(OE_COMP_VEC)),2) # OE_COMP available here 
+  # Calculate total qualified overload credit hours that exceed 12 credit hours (QOHRS)
+  QOHRS<-max(0, sum(as.numeric(output$HRS)) - 12 , na.rm=TRUE)
+  # Calculate OL_COMP and prorate where applicable
+  OL_COMP<-0
+  m<-length(output$HRS) # so that output$HRS[m] will be the m-th credit hour
+  p<-sum(output$HRS)  #Total Credit Hours
+  while(p>12 ){
+    
+    OL_COMP<- OL_COMP + (  (min(output$ENRLD[m], 10))/10 )*(1000)* (min(output$HRS[m], p-12))
+    p<-p-output$HRS[m]
+    m<-m-1
+  }
+  # OL_COMP available here.
+  # Calculate total pay from OL_COMP and OE_COMP 
+  TOTAL_COMP<-OL_COMP + OE_COMP
+  #create the i-th data-frame to contain results
+  INSTRUCTOR<-INSTR[i,1]
+  df_i<-data.frame(INSTRUCTOR, QOHRS, OL_COMP, OE_COMP, TOTAL_COMP)
+  ## Bind by row with previous outcome to get the big 'df'
+  df<-rbind(df,df_i)
+}
+## 'df' available here with required results
+df[is.na(df)]<-0
+df<-subset(df, df$TOTAL_COMP !=0) # keep only instructors who are compensated
+
+head(df, n=20)
+```

@@ -1,0 +1,140 @@
+---
+title: Quantifying extra compensations of full-time instructors at an ideal college
+  using  publicly available class schedule data and institutional guidelines for compensation.
+author: D. Aberra
+date: '2024-05-26'
+slug: quantifying-extra-compensations-of-full-time-instructors-at-an-ideal-college-using-publicly-available-class-schedule-data-and-institutional-guidelines-for-compensation
+categories:
+  - R
+tags:
+  - R
+  - R Markdown
+---
+
+
+
+<p>In many higher education institutions in the U.S., a full-time faculty member typically receives a base salary for 9 or 10 months, disbursed in monthly installments over the academic year or the whole year. Nevertheless, within this framework, faculty may also accrue additional income through various avenues such as administrative allowances, service allowances, over-load compensations, over-enrollment compensations, summer teaching compensations, or other similar forms of remuneration. Among these, over-load compensations (<code>OL_COMP</code>) and over-enrollment compensations (<code>OE_COMP</code>) stand out as the most prevalent during academic semesters, excluding summer compensations.</p>
+<p><code>OL_COMP</code> come into play when faculty undertake teaching responsibilities exceeding the standard credit hours mandated for full-time faculty as outlined in their contractual agreements or institutional guidelines.</p>
+<p><code>OE_COMP</code> occur when class enrollments surpass the institution’s predefined regular enrollment threshold.</p>
+<p>With the aid of the statistical software R, publicly available class schedule data, and institutional compensation guidelines, we quantify OL_COMP and OE_COMP earned by each instructor during a semester within an exemplary higher education institution referred to as <code>Ideal College.</code></p>
+<div id="class-schedule-data-from-ideal-college." class="section level2">
+<h2>Class schedule data from <code>Ideal College</code>.</h2>
+<p>Listed below are examples of exemplary higher education institutions that provide publicly accessible class schedule data. A significant number of these institutions utilize software developed by Ellucian Company L.P. to generate these schedules, resulting in similarities across many datasets. However, institutions retain the autonomy to customize the display of their data, with some choosing to impose restrictions</p>
+<ul>
+<li><p><a href="https://courseschedule.lipscomb.edu/ScheduleP2023SPRING.html?_gl=1*22p1u1*_up*MQ">Lipscomb University example of class schedule</a></p></li>
+<li><p><a href="https://simba.savannahstate.edu/students/schedule.aspx?term=202402">Savannah State University example of class schedule</a></p></li>
+<li><p><a href="https://benedict.edu/fall-2022-course-offerings/">Benedict College example of class schedule</a></p></li>
+<li><p><a href="https://github.com/dawit3000/P3/blob/master/Ideal_College_Fall_2021_Schedule.csv">‘Ideal College’ class schedule folder</a></p></li>
+</ul>
+<p>Let’s get the class schedule data for ’Ideal College and replace original names by random names.</p>
+<pre class="r"><code>##Get data, clean a bit, avoid using real names 
+library(dplyr)
+schedule&lt;- read.csv(&quot;https://raw.githubusercontent.com/dawit3000/P3/master/Ideal_College_Fall_2021_Schedule.csv&quot;)
+schedule&lt;-subset(schedule,schedule$INSTRUCTOR !=&quot;&quot; &amp;  schedule$ENRLD &gt; 2) ## will see later that when ENRLD is 2 or less, no compensation
+schedule&lt;-subset(schedule, select=c(&quot;INSTRUCTOR&quot;,&quot;SUBJ&quot;, &quot;NUMB&quot;, &quot;ENRLD&quot;, &quot;HRS&quot; )) ## Choose only the columns you might need
+
+## Replace original names by random names
+library(randomNames)
+original_names&lt;-unique(schedule$INSTRUCTOR)
+random_names&lt;-randomNames(length(original_names)) #Random names to replace original names
+for(i in 1:length(original_names)) 
+  {
+  schedule[schedule == original_names[i]]&lt;-random_names[i]
+  }
+
+head(schedule)
+##           INSTRUCTOR SUBJ NUMB ENRLD HRS
+## 1     Alarid, Fatima ACCT 2101    34   3
+## 2 Thalacker, Kaytlin ACCT 2102    33   3
+## 3     Alarid, Fatima ACCT 3113     7   3
+## 4 Thalacker, Kaytlin ACCT 3133    10   3
+## 5     Lanier, Sophia ACCT 4113     9   3
+## 6    Kennah, Latesha AENT 2833    27   3</code></pre>
+<p>Since instructors may teach more than one class, their names may appear in the above table more than once under the variable ‘INSTRUCTOR’. We will need the variables <code>INSTRUCTOR</code> (instructor name), <code>ENRLD</code> (number of students enrolled in the class) and <code>HRS</code> (credit hours). Let us also create here a list of the unique instructors, <code>INSTR_i,  i=1,2,3, ...,</code> for future use.</p>
+<pre class="r"><code>INSTR &lt;-unique(schedule[c(&quot;INSTRUCTOR&quot;)])
+INSTR &lt;- arrange(INSTR, INSTRUCTOR)
+head(INSTR)
+##          INSTRUCTOR
+## 1      Adade, Remle
+## 2    Alarid, Fatima
+## 3   Alberts, Darius
+## 4  Apodaca, Patrick
+## 5    Arens, Marceen
+## 6 Atsepoyi, Kyleigh</code></pre>
+</div>
+<div id="guidelines-of-ideal-college-for-ol_comp-and-oe_comp" class="section level2">
+<h2>Guidelines of <code>Ideal College</code> for <code>OL_COMP</code> and <code>OE_COMP</code>:</h2>
+<ol style="list-style-type: decimal">
+<li>The standard teaching load for a full-time Instructor at this college is 12 credit hours, with a recommended student enrollment range of 10 to 30 students per class.</li>
+<li>Classes with an enrollment (<code>ENRLD</code>) of less than 3 will not qualify for <code>OL_COMP</code>. It’s advised to teach such classes within the regular load or consider cancellation.</li>
+<li>Instructors teaching more than 12 credit hours will receive <code>OL_COMP</code> for each additional credit hour if the enrollment in those extra classes is 3 or more.</li>
+<li>For classes with normal enrollment (10 to 30 students), compensation is calculated at a rate of <code>$1000</code> per credit hour, resulting in <code>OL_COMP = 1000*(#_of_credit_hours).</code></li>
+<li>If a class has an enrollment in the range 3 to 9 and is considered for over-load compensation, compensation will be prorated based on the 10-student minimum requirement for standard enrollment: <code>OL_COMP = (#_of_students/10)*1000*(#_of_credit_hours).</code></li>
+<li>Classes with an enrollment exceeding 30 students will be considered over-enrolled, and instructors will be compensated for the additional students based on a prorated scale relative to the standard maximum enrollment of 30: <code>OE_COMP = (#_of_extra_students/30)*1000*(#_of_credit_hours).</code></li>
+<li><code>OL_COMP</code> calculations begin with the lowest-enrollment class with <code>ENRLD</code> greater than or equal to 3 and continue up until the standard load of 12 credit hours is reached.</li>
+</ol>
+</div>
+<div id="implementing-ol_comp-and-oe_comp-guidelines-of-ideal-college" class="section level2">
+<h2>Implementing <code>OL_COMP</code> and <code>OE_COMP</code> guidelines of <code>Ideal College</code></h2>
+<p>Our approach involves iterating through each instructor (starting with <code>i=1</code>) to compute their compensation according to the guidelines. Results for each instructor will be appended to a data frame <code>df</code> using <code>rbind</code>, forming the final output. We’ll calculate three key metrics for each instructor: <code>OL_COMP, OE_COMP, and QOHRS (qualified overload credit hours)</code>, providing a simplified overview of compensations.</p>
+<pre class="r"><code>library(&quot;scales&quot;)
+df&lt;-NULL
+for(i in 1:nrow(INSTR))
+{  
+  output&lt;-filter(schedule, grepl(INSTR[i, 1],schedule$INSTRUCTOR))
+  output&lt;-arrange(output, desc(output$ENRLD)) # we want low ENRLD courses listed at the bottom
+  # Calculate Over-Enrolled Payment for each course and store the sum in a variable OE_COMP
+  OE_COMP_VEC&lt;-&quot;&quot;
+  for(j in 1:nrow(output))
+  {
+    if(output$ENRLD[j]&gt;30){OE_COMP_VEC[j]&lt;-round((output$ENRLD[j]-30)*(1000/30)*output$HRS[j],2)}
+  }
+  OE_COMP&lt;-round(sum(as.numeric(OE_COMP_VEC)),2) # OE_COMP available here 
+  # Calculate total qualified overload credit hours that exceed 12 credit hours (QOHRS)
+  QOHRS&lt;-max(0, sum(as.numeric(output$HRS)) - 12 , na.rm=TRUE)
+  # Calculate OL_COMP and prorate where applicable
+  OL_COMP&lt;-0
+  m&lt;-length(output$HRS) # so that output$HRS[m] will be the m-th credit hour
+  p&lt;-sum(output$HRS)  #Total Credit Hours
+  while(p&gt;12 ){
+    
+    OL_COMP&lt;- OL_COMP + (  (min(output$ENRLD[m], 10))/10 )*(1000)* (min(output$HRS[m], p-12))
+    p&lt;-p-output$HRS[m]
+    m&lt;-m-1
+  }
+  # OL_COMP available here.
+  # Calculate total pay from OL_COMP and OE_COMP 
+  TOTAL_COMP&lt;-OL_COMP + OE_COMP
+  #create the i-th data-frame to contain results
+  INSTRUCTOR&lt;-INSTR[i,1]
+  df_i&lt;-data.frame(INSTRUCTOR, QOHRS, OL_COMP, OE_COMP, TOTAL_COMP)
+  ## Bind by row with previous outcome to get the big &#39;df&#39;
+  df&lt;-rbind(df,df_i)
+}
+## &#39;df&#39; available here with required results
+df[is.na(df)]&lt;-0
+df&lt;-subset(df, df$TOTAL_COMP !=0) # keep only instructors who are compensated
+
+head(df, n=20)
+##              INSTRUCTOR QOHRS OL_COMP OE_COMP TOTAL_COMP
+## 1          Adade, Remle     0       0  200.00     200.00
+## 2        Alarid, Fatima     0       0  400.00     400.00
+## 3       Alberts, Darius     1    1000 1200.00    2200.00
+## 6     Atsepoyi, Kyleigh     2    2000 1000.00    3000.00
+## 7        Aveitia, Viola     0       0 2200.00    2200.00
+## 10        Blondin, Cory     0       0  600.00     600.00
+## 12       Brink, Vincent     0       0  300.00     300.00
+## 15         Butler, Ryan     0       0  500.00     500.00
+## 22        Dance, Heaven     0       0  633.33     633.33
+## 23    Dandurand, Justin     0       0 1400.00    1400.00
+## 24 De La Torre, Alondra     4    4000 8800.00   12800.00
+## 26    Downing, Kimberly     2     600 5133.33    5733.33
+## 30    Feelings, Monique     0       0 3000.00    3000.00
+## 31    Ferguson, Anthony     0       0 3100.00    3100.00
+## 36     Fox, Christopher     3    1200  300.00    1500.00
+## 37        Franco, Jesse     0       0 2133.34    2133.34
+## 39         Galaz, Grant     0       0  700.00     700.00
+## 40       Galvez, Benito     0       0  600.00     600.00
+## 49         Herr, Aurora     0       0  100.00     100.00
+## 50        Hintz, Tasina     0       0  666.67     666.67</code></pre>
+</div>
