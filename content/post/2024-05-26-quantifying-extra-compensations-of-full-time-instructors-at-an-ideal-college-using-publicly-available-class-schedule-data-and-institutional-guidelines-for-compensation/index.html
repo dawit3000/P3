@@ -1,6 +1,5 @@
 ---
-title: Quantifying extra compensations of full-time instructors at an ideal college
-  using  publicly available class schedule data and institutional guidelines for compensation.
+title: Quantifying extra compensations of full-time instructors at an ideal college.
 author: D. Aberra
 date: '2024-05-26'
 slug: quantifying-extra-compensations-of-full-time-instructors-at-an-ideal-college-using-publicly-available-class-schedule-data-and-institutional-guidelines-for-compensation
@@ -43,24 +42,24 @@ for(i in 1:length(original_names))
   }
 
 head(schedule)
-##           INSTRUCTOR SUBJ NUMB ENRLD HRS
-## 1     Alarid, Fatima ACCT 2101    34   3
-## 2 Thalacker, Kaytlin ACCT 2102    33   3
-## 3     Alarid, Fatima ACCT 3113     7   3
-## 4 Thalacker, Kaytlin ACCT 3133    10   3
-## 5     Lanier, Sophia ACCT 4113     9   3
-## 6    Kennah, Latesha AENT 2833    27   3</code></pre>
+##               INSTRUCTOR SUBJ NUMB ENRLD HRS
+## 1 Archila-Lopez, Chantel ACCT 2101    34   3
+## 2           Gieser, Irma ACCT 2102    33   3
+## 3 Archila-Lopez, Chantel ACCT 3113     7   3
+## 4           Gieser, Irma ACCT 3133    10   3
+## 5        Soufiani, Jiali ACCT 4113     9   3
+## 6          Wilson, Audia AENT 2833    27   3</code></pre>
 <p>Since instructors may teach more than one class, their names may appear in the above table more than once under the variable ‘INSTRUCTOR’. We will need the variables <code>INSTRUCTOR</code> (instructor name), <code>ENRLD</code> (number of students enrolled in the class) and <code>HRS</code> (credit hours). Let us also create here a list of the unique instructors, <code>INSTR_i,  i=1,2,3, ...,</code> for future use.</p>
 <pre class="r"><code>INSTR &lt;-unique(schedule[c(&quot;INSTRUCTOR&quot;)])
 INSTR &lt;- arrange(INSTR, INSTRUCTOR)
 head(INSTR)
-##          INSTRUCTOR
-## 1      Adade, Remle
-## 2    Alarid, Fatima
-## 3   Alberts, Darius
-## 4  Apodaca, Patrick
-## 5    Arens, Marceen
-## 6 Atsepoyi, Kyleigh</code></pre>
+##               INSTRUCTOR
+## 1           Agustin, Lee
+## 2      Alderete, Justice
+## 3  Alexander, Bernadette
+## 4 Archila-Lopez, Chantel
+## 5           Arnold, Abby
+## 6         Banks, Karissa</code></pre>
 </div>
 <div id="guidelines-of-ideal-college-for-ol_comp-and-oe_comp" class="section level2">
 <h2>Guidelines of <code>Ideal College</code> for <code>OL_COMP</code> and <code>OE_COMP</code>:</h2>
@@ -116,25 +115,25 @@ df[is.na(df)]&lt;-0
 df&lt;-subset(df, df$TOTAL_COMP !=0) # keep only instructors who are compensated
 
 head(df, n=20)
-##              INSTRUCTOR QOHRS OL_COMP OE_COMP TOTAL_COMP
-## 1          Adade, Remle     0       0  200.00     200.00
-## 2        Alarid, Fatima     0       0  400.00     400.00
-## 3       Alberts, Darius     1    1000 1200.00    2200.00
-## 6     Atsepoyi, Kyleigh     2    2000 1000.00    3000.00
-## 7        Aveitia, Viola     0       0 2200.00    2200.00
-## 10        Blondin, Cory     0       0  600.00     600.00
-## 12       Brink, Vincent     0       0  300.00     300.00
-## 15         Butler, Ryan     0       0  500.00     500.00
-## 22        Dance, Heaven     0       0  633.33     633.33
-## 23    Dandurand, Justin     0       0 1400.00    1400.00
-## 24 De La Torre, Alondra     4    4000 8800.00   12800.00
-## 26    Downing, Kimberly     2     600 5133.33    5733.33
-## 30    Feelings, Monique     0       0 3000.00    3000.00
-## 31    Ferguson, Anthony     0       0 3100.00    3100.00
-## 36     Fox, Christopher     3    1200  300.00    1500.00
-## 37        Franco, Jesse     0       0 2133.34    2133.34
-## 39         Galaz, Grant     0       0  700.00     700.00
-## 40       Galvez, Benito     0       0  600.00     600.00
-## 49         Herr, Aurora     0       0  100.00     100.00
-## 50        Hintz, Tasina     0       0  666.67     666.67</code></pre>
+##                INSTRUCTOR QOHRS OL_COMP OE_COMP TOTAL_COMP
+## 1            Agustin, Lee     0       0 3000.00    3000.00
+## 2       Alderete, Justice     0       0  700.00     700.00
+## 4  Archila-Lopez, Chantel     0       0  400.00     400.00
+## 5            Arnold, Abby     0       0 2800.00    2800.00
+## 7        Barcelona, Keith     0       0  200.00     200.00
+## 10          Batlle, Laura     0       0 2700.00    2700.00
+## 11        Bevans, Brianna     4    2500 1900.00    4400.00
+## 14      Bonath, Dominique     7    7000 1066.66    8066.66
+## 16          Bunch, Benhur     0       0 2200.00    2200.00
+## 17          Carey, Elijah     0       0  100.00     100.00
+## 19        Castellon, Trae     0       0  800.00     800.00
+## 24           Chhor, Jason     0       0  600.00     600.00
+## 26         Clark, Michael    12   10800 2933.33   13733.33
+## 27         Cline, Ardisia     0       0 1733.33    1733.33
+## 30        Coleman, Daniel     0       0  400.00     400.00
+## 32       Contreras, Shale     0       0 5600.00    5600.00
+## 33         Cordova, David     0       0  700.00     700.00
+## 34              Dahm, Thi     0       0  200.00     200.00
+## 38           Duran, Aiden     0       0 1466.67    1466.67
+## 45       Fletcher, Amelia     0       0 1333.33    1333.33</code></pre>
 </div>

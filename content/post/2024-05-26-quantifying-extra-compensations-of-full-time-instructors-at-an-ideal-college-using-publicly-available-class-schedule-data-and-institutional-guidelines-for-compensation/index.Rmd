@@ -1,6 +1,5 @@
 ---
-title: Quantifying extra compensations of full-time instructors at an ideal college
-  using  publicly available class schedule data and institutional guidelines for compensation.
+title: Quantifying extra compensations of full-time instructors at an ideal college.
 author: D. Aberra
 date: '2024-05-26'
 slug: quantifying-extra-compensations-of-full-time-instructors-at-an-ideal-college-using-publicly-available-class-schedule-data-and-institutional-guidelines-for-compensation
